@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="SPI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SPI_jar</output-path>
+    <root id="archive" name="SPI.jar">
+      <element id="module-output" name="SPI" />
+    </root>
+  </artifact>
+</component>
