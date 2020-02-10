@@ -17,7 +17,7 @@
     <!--repositories>
         <repository>
             <id>WSL</id>
-            <url>./file://${project.basedir}</url>
+            <url>file:/${project.parent.basedir}\out\</url>
         </repository>
     </repositories-->
     <dependencyManagement>

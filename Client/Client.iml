@@ -10,6 +10,5 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="SPI" />
-    <orderEntry type="module" module-name="Plugin" />
   </component>
 </module>
