@@ -70,6 +70,7 @@ public class JavaHttpServer implements Runnable{
     @Override
     public void run() {
         PluginSearcher pl =new PluginSearcher(args);
+
         // we manage our particular client connection
         BufferedReader in = null; PrintWriter out = null; BufferedOutputStream dataOut = null;
         String fileRequested = null;
