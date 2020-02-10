@@ -1,6 +1,6 @@
 package Plugin;
 
-import spi.Page;
+import Spi.Page;
 
 
 public class PluginTest implements Page {

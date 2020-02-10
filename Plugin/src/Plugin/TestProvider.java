@@ -1,7 +1,7 @@
 package Plugin;
 
-import spi.Page;
-import spi.PageProvider;
+import Spi.Page;
+import Spi.PageProvider;
 
 public class TestProvider implements PageProvider {
     @Override

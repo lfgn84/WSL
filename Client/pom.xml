@@ -6,7 +6,15 @@
 
     <groupId>WSL</groupId>
     <artifactId>Client</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
+    <parent>
+        <groupId>se.iths</groupId>
+        <artifactId>WSL</artifactId>
+        <version>1.0</version>
+
+    </parent>
+
+
     <build>
         <plugins>
             <plugin>
@@ -17,14 +25,32 @@
                     <target>11</target>
                 </configuration>
             </plugin>
+            <!--plugin>
+
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <-version>1.6.0</version>
+                <configuration>
+                    <skip>false</skip>
+                    <mainClass>se.iths.PluginSearcher</mainClass>
+                </configuration>
+            </plugin-->
         </plugins>
     </build>
     <dependencies>
+
         <dependency>
             <groupId>WSL</groupId>
             <artifactId>SPI</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <!--version>1.0</version-->
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>WSL</groupId>
+            <artifactId>Plugin</artifactId>
+            <!--version>1.0-SNAPSHOT</version-->
+            <scope>compile</scope>
+
         </dependency>
     </dependencies>
 

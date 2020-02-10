@@ -1,7 +1,7 @@
 package se.iths;
 
 
-import spi.Page;
+import Spi.Page;
 
 
 

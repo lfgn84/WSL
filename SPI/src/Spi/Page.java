@@ -1,4 +1,4 @@
-package spi;
+package Spi;
 public interface Page {
     void execute();
 }

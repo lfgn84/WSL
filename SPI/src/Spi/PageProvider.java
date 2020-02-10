@@ -1,4 +1,4 @@
-package spi;
+package Spi;
 public interface PageProvider {
     Page create();
 }
