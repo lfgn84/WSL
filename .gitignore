@@ -1,3 +1,6 @@
 # Project exclude paths
 /out/
 /Plugin/target/
+/Client/target/
+/SPI/target/
+/Server/target/
