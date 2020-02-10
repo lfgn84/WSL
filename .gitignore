@@ -4,3 +4,7 @@
 /Client/target/
 /SPI/target/
 /Server/target/
+/Client/*.iml
+/Plugin/*.iml
+/Server/*.iml
+/SPI/*.iml
