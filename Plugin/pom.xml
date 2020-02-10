@@ -42,9 +42,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                    <outputDirectory>C:\Users\NicklasJohansson\Documents\Git\Javautv\WSLpomsetup\PluginLib\</outputDirectory>
+                    <outputDirectory>${project.parent.basedir}\PluginLib\</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>

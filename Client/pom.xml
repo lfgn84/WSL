@@ -32,7 +32,7 @@
                 <configuration>
                     <skip>false</skip>
                     <mainClass>se.iths.PluginSearcher</mainClass>
-                    <commandlineArgs>${project.parent.basedir}\out\artifacts\Plugin_jar\</commandlineArgs>
+                    <commandlineArgs>${project.parent.basedir}\PluginLib\</commandlineArgs>
                 </configuration>
             </plugin>
         </plugins>
