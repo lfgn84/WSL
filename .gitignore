@@ -1,10 +1,10 @@
 # Project exclude paths
-/.idea/
-/out/
-/Plugin/target/
-/Client/target/
-/SPI/target/
-/Server/target/
+/.idea/*.*
+/out/*.*
+/Plugin/target/*.*
+/Client/target/*.*
+/SPI/target/*.*
+/Server/target/*.*
 /Client/*.iml
 /Plugin/*.iml
 /Server/*.iml
