@@ -40,7 +40,7 @@ public class Main {
 
     private void run(String[] args) {
 
-        URLClassLoader ucl = createClassLoader("C:\\Users\\seven\\IdeaProjects\\WSL\\out\\artifacts\\lib");
+        URLClassLoader ucl = createClassLoader(args[0]);
 
          ServiceLoader<Page> loader =
              ServiceLoader.load(Page.class, ucl);
