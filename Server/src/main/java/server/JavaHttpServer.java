@@ -40,7 +40,7 @@ public class JavaHttpServer implements Runnable{
 
     public JavaHttpServer(Socket c,String[] args) {
         connect = c;
-       this.args=args;
+       this.args = args;
     }
 
     public static void main(String[] args) {
