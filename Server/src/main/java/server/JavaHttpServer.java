@@ -69,12 +69,15 @@ public class JavaHttpServer implements Runnable{
 
     @Override
     public void run() {
-        PluginSearcher pl =new PluginSearcher(args);
+        PluginSearcher pl = new PluginSearcher(args);
         // we manage our particular client connection
-        BufferedReader in = null; PrintWriter out = null; BufferedOutputStream dataOut = null;
+        BufferedReader in = null;
+        PrintWriter out = null;
+        BufferedOutputStream dataOut = null;
         String fileRequested = null;
 
-        try {
+        //try (Socket socket = connect)
+         try{
             // we read characters from the client via input stream on the socket
             in = new BufferedReader(new InputStreamReader(connect.getInputStream()));
             // we get character output stream to client (for headers)
@@ -104,12 +107,12 @@ public class JavaHttpServer implements Runnable{
                 byte[] fileData = readFileData(file, fileLength);
 
                 // we send HTTP Headers with data to client
-                out.println("HTTP/1.1 501 Not Implemented");
-                out.println("Server: Java HTTP Server from SSaurel : 1.0");
-                out.println("Date: " + new Date());
-                out.println("Content-type: " + contentMimeType);
-                out.println("Content-length: " + fileLength);
-                out.println(); // blank line between headers and content, very important !
+                out.print("HTTP/1.1 501 Not Implemented\r\n");
+                out.print("Server: Java HTTP Server from Golare har inga Polare\r\n");
+                out.print("Date: " + new Date() + "\r\n");
+                out.print("Content-type: " + contentMimeType + "\r\n");
+                out.print("Content-length: " + fileLength + "\r\n");
+                out.print("\r\n"); // blank line between headers and content, very important !
                 out.flush(); // flush character output stream buffer
                 // file
                 dataOut.write(fileData, 0, fileLength);
@@ -129,12 +132,12 @@ public class JavaHttpServer implements Runnable{
                     byte[] fileData = readFileData(file, fileLength);
 
                     // send HTTP Headers
-                    out.println("HTTP/1.1 200 OK");
-                    out.println("Server: Java HTTP Server from SSaurel : 1.0");
-                    out.println("Date: " + new Date());
-                    out.println("Content-type: " + content);
-                    out.println("Content-length: " + fileLength);
-                    out.println(); // blank line between headers and content, very important !
+                    out.print("HTTP/1.1 200 OK\r\n");
+                    out.print("Server: Java HTTP Server from Golare har inga Polare\r\n");
+                    out.print("Date: " + new Date() + "\r\n");
+                    out.print("Content-type: " + content + "\r\n");
+                    out.print("Content-length: " + fileLength + "\r\n");
+                    out.print("\r\n"); // blank line between headers and content, very important !
                     out.flush(); // flush character output stream buffer
 
                     dataOut.write(fileData, 0, fileLength);
@@ -203,12 +206,12 @@ public class JavaHttpServer implements Runnable{
         String content = "text/html";
         byte[] fileData = readFileData(file, fileLength);
 
-        out.println("HTTP/1.1 404 File Not Found");
-        out.println("Server: Java HTTP Server from SSaurel : 1.0");
-        out.println("Date: " + new Date());
-        out.println("Content-type: " + content);
-        out.println("Content-length: " + fileLength);
-        out.println(); // blank line between headers and content, very important !
+        out.print("HTTP/1.1 404 File Not Found\r\n");
+        out.print("Server: Java HTTP Server from Golare har inga Polare\r\n");
+        out.print("Date: " + new Date() + "\r\n");
+        out.print("Content-type: " + content + "\r\n");
+        out.print("Content-length: " + fileLength + "\r\n");
+        out.print("\r\n"); // blank line between headers and content, very important !
         out.flush(); // flush character output stream buffer
 
         dataOut.write(fileData, 0, fileLength);
