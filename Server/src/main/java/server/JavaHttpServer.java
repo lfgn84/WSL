@@ -1,5 +1,7 @@
 package server;
 
+import se.iths.PluginSearcher;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,6 +23,7 @@ import java.util.concurrent.Executors;
 // Each Client Connection will be managed in a dedicated Thread
 public class JavaHttpServer implements Runnable{
 
+    private String [] args;
     static final File WEB_ROOT = new File(".");
     static ExecutorService threadManager = Executors.newCachedThreadPool();
     static final String DEFAULT_FILE = "index.html";
@@ -35,8 +38,9 @@ public class JavaHttpServer implements Runnable{
     // Client Connection via Socket Class
     private Socket connect;
 
-    public JavaHttpServer(Socket c) {
+    public JavaHttpServer(Socket c,String[] args) {
         connect = c;
+       this.args=args;
     }
 
     public static void main(String[] args) {
@@ -46,7 +50,7 @@ public class JavaHttpServer implements Runnable{
 
             // we listen until user halts server execution
             while (true) {
-                JavaHttpServer myServer = new JavaHttpServer(serverConnect.accept());
+                JavaHttpServer myServer = new JavaHttpServer(serverConnect.accept(),args);
 
                 if (verbose) {
                     System.out.println("Connecton opened. (" + new Date() + ")");
@@ -65,7 +69,7 @@ public class JavaHttpServer implements Runnable{
 
     @Override
     public void run() {
-
+        PluginSearcher pl =new PluginSearcher(args);
         // we manage our particular client connection
         BufferedReader in = null; PrintWriter out = null; BufferedOutputStream dataOut = null;
         String fileRequested = null;

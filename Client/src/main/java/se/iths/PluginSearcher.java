@@ -14,9 +14,13 @@ import java.util.ServiceLoader;
 
 public class PluginSearcher {
 
+    public PluginSearcher(String[] args){
+        this.run(args);
+    }
+
     public static void main(String[] args) {
-        PluginSearcher pluginSearcher = new PluginSearcher();
-        pluginSearcher.run(args);
+        PluginSearcher pluginSearcher = new PluginSearcher(args);
+        //pluginSearcher.run(args);
     }
 
     private URLClassLoader createClassLoader(String fileLocation) {
