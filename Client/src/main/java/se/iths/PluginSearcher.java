@@ -1,4 +1,4 @@
-package client;
+package se.iths;
 
 
 import spi.Page;
@@ -12,11 +12,11 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ServiceLoader;
 
-public class Main {
+public class PluginSearcher {
 
     public static void main(String[] args) {
-        Main main = new Main();
-        main.run(args);
+        PluginSearcher pluginSearcher = new PluginSearcher();
+        pluginSearcher.run(args);
     }
 
     private URLClassLoader createClassLoader(String fileLocation) {

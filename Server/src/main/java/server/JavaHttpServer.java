@@ -27,7 +27,7 @@ public class JavaHttpServer implements Runnable{
     static final String FILE_NOT_FOUND = "404.html";
     static final String METHOD_NOT_SUPPORTED = "not_supported.html";
     // port to listen connection
-    static final int PORT = 8090;
+    static final int PORT = 8080;
 
     // verbose mode
     static final boolean verbose = true;
@@ -65,6 +65,7 @@ public class JavaHttpServer implements Runnable{
 
     @Override
     public void run() {
+
         // we manage our particular client connection
         BufferedReader in = null; PrintWriter out = null; BufferedOutputStream dataOut = null;
         String fileRequested = null;
