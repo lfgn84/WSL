@@ -27,6 +27,7 @@ public class JavaHttpServer implements Runnable{
     static final File WEB_ROOT = new File(".");
     static ExecutorService threadManager = Executors.newCachedThreadPool();
     static final String DEFAULT_FILE = "index.html";
+    static final String FORM_FILE = "form.html";
     static final String FILE_NOT_FOUND = "404.html";
     static final String METHOD_NOT_SUPPORTED = "not_supported.html";
     // port to listen connection
@@ -93,7 +94,7 @@ public class JavaHttpServer implements Runnable{
             String method = parse.nextToken().toUpperCase(); // we get the HTTP method of the client
             // we get file requested
             fileRequested = parse.nextToken().toLowerCase();
-            if(!(fileRequested==null)){
+            if(!(fileRequested == null)){
                 pl.setFilerquest(fileRequested);
             }
             // we support only GET and HEAD methods, we check
@@ -126,7 +127,8 @@ public class JavaHttpServer implements Runnable{
                 // GET or HEAD method
                 if (fileRequested.endsWith("/")) {
 
-                    fileRequested += DEFAULT_FILE;
+                   // fileRequested += DEFAULT_FILE;
+                    fileRequested += FORM_FILE;
                 }
 
                 File file = new File(WEB_ROOT, fileRequested);
