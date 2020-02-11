@@ -40,7 +40,7 @@ public class JavaHttpServer implements Runnable{
 
     public JavaHttpServer(Socket c,String[] args) {
         connect = c;
-       this.args=args;
+       this.args = args;
     }
 
     public static void main(String[] args) {
@@ -78,6 +78,7 @@ public class JavaHttpServer implements Runnable{
 
         //try (Socket socket = connect)
         try{
+
             // we read characters from the client via input stream on the socket
             in = new BufferedReader(new InputStreamReader(connect.getInputStream()));
             // we get character output stream to client (for headers)
