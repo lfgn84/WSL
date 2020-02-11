@@ -200,12 +200,19 @@ public class JavaHttpServer implements Runnable{
     }
 
     // return supported MIME Types
+
     private String getContentType(String fileRequested) {
-        if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
-            return "text/html";
-        else
-            return "text/plain";
-    }
+            if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
+                return "text/html";
+            if (fileRequested.endsWith(".pdf"))
+                return "application/pdf";
+            if(fileRequested.endsWith(".css"))
+                return "text/css";
+            else
+                return "text/plain";
+        }
+
+
 
     private void fileNotFound(PrintWriter out, OutputStream dataOut, String fileRequested) throws IOException {
         File file = new File(WEB_ROOT, FILE_NOT_FOUND);
