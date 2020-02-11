@@ -9,4 +9,5 @@ public class PluginTest implements Page {
         System.out.println("Plugin Test prints ! ");
 
     }
+
 }

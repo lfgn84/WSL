@@ -30,7 +30,7 @@ public class JavaHttpServer implements Runnable{
     static final String FILE_NOT_FOUND = "404.html";
     static final String METHOD_NOT_SUPPORTED = "not_supported.html";
     // port to listen connection
-    static final int PORT = 8080;
+    static final int PORT = 80;
 
     // verbose mode
     static final boolean verbose = true;
@@ -92,7 +92,9 @@ public class JavaHttpServer implements Runnable{
             String method = parse.nextToken().toUpperCase(); // we get the HTTP method of the client
             // we get file requested
             fileRequested = parse.nextToken().toLowerCase();
-
+            if(!(fileRequested==null)){
+                pl.setFilerquest(fileRequested);
+            }
             // we support only GET and HEAD methods, we check
             if (!method.equals("GET")  &&  !method.equals("HEAD")) {
                 if (verbose) {
@@ -119,8 +121,10 @@ public class JavaHttpServer implements Runnable{
                 dataOut.flush();
 
             } else {
+                pl.run();
                 // GET or HEAD method
                 if (fileRequested.endsWith("/")) {
+
                     fileRequested += DEFAULT_FILE;
                 }
 
