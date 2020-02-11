@@ -13,8 +13,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.StringTokenizer;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,7 +23,7 @@ import java.util.concurrent.Executors;
 // https://www.ssaurel.com/blog/create-a-simple-http-web-server-in-java
 // Each Client Connection will be managed in a dedicated Thread
 public class JavaHttpServer implements Runnable{
-
+    List<String> listan =new ArrayList<>();
     private String [] args;
     static final File WEB_ROOT = new File(".");
     static ExecutorService threadManager = Executors.newCachedThreadPool();
@@ -76,9 +77,10 @@ public class JavaHttpServer implements Runnable{
         BufferedOutputStream dataOut = null;
         String fileRequested = null;
 
+
         //try (Socket socket = connect)
         try{
-
+            Request request= new Request();
             // we read characters from the client via input stream on the socket
             in = new BufferedReader(new InputStreamReader(connect.getInputStream()));
             // we get character output stream to client (for headers)
@@ -86,13 +88,15 @@ public class JavaHttpServer implements Runnable{
             // get binary output stream to client (for requested data)
             dataOut = new BufferedOutputStream(connect.getOutputStream());
 
-            // get first line of the request from the client
-            String input = in.readLine();
-            // we parse the request with a string tokenizer
-            StringTokenizer parse = new StringTokenizer(input);
-            String method = parse.nextToken().toUpperCase(); // we get the HTTP method of the client
+            while (in.ready()){
+                request.headers.add(in.readLine());
+            }
+
+            String method=request.getMethod();
+
+
             // we get file requested
-            fileRequested = parse.nextToken().toLowerCase();
+            fileRequested = request.getFileRequested();
             if(!(fileRequested==null)){
                 pl.setFilerquest(fileRequested);
             }
@@ -166,7 +170,7 @@ public class JavaHttpServer implements Runnable{
             System.err.println("Server error : " + ioe);
         } finally {
             try {
-                in.close();
+               // in.close();
                 out.close();
                 dataOut.close();
                 connect.close(); // we close socket connection
