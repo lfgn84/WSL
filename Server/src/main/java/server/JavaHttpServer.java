@@ -148,8 +148,8 @@ public class JavaHttpServer implements Runnable{
                 // GET or HEAD method
                 if (fileRequested.endsWith("/")) {
 
-                   // fileRequested += DEFAULT_FILE;
-                    fileRequested += FORM_FILE;
+                    fileRequested += DEFAULT_FILE;
+                  //  fileRequested += FORM_FILE;
                 }
 
                 File file = new File(WEB_ROOT, fileRequested);
