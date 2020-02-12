@@ -28,6 +28,7 @@ public class JavaHttpServer implements Runnable{
     static final File WEB_ROOT = new File(".");
     static ExecutorService threadManager = Executors.newCachedThreadPool();
     static final String DEFAULT_FILE = "index.html";
+    static final String FORM_FILE = "form.html";
     static final String FILE_NOT_FOUND = "404.html";
     static final String METHOD_NOT_SUPPORTED = "not_supported.html";
     // port to listen connection
@@ -96,8 +97,10 @@ public class JavaHttpServer implements Runnable{
 
 
             // we get file requested
+
             fileRequested = request.getFileRequested();
             if(!(fileRequested==null)){
+
                 pl.setFilerquest(fileRequested);
             }
             // we support only GET and HEAD methods, we check
@@ -130,7 +133,8 @@ public class JavaHttpServer implements Runnable{
                 // GET or HEAD method
                 if (fileRequested.endsWith("/")) {
 
-                    fileRequested += DEFAULT_FILE;
+                   // fileRequested += DEFAULT_FILE;
+                    fileRequested += FORM_FILE;
                 }
 
                 File file = new File(WEB_ROOT, fileRequested);
@@ -202,12 +206,19 @@ public class JavaHttpServer implements Runnable{
     }
 
     // return supported MIME Types
+
     private String getContentType(String fileRequested) {
-        if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
-            return "text/html";
-        else
-            return "text/plain";
-    }
+            if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
+                return "text/html";
+            if (fileRequested.endsWith(".pdf"))
+                return "application/pdf";
+            if(fileRequested.endsWith(".css"))
+                return "text/css";
+            else
+                return "text/plain";
+        }
+
+
 
     private void fileNotFound(PrintWriter out, OutputStream dataOut, String fileRequested) throws IOException {
         File file = new File(WEB_ROOT, FILE_NOT_FOUND);

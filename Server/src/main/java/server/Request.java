@@ -3,6 +3,7 @@ package server;
 import java.util.*;
 
 public class Request {
+<<<<<<< HEAD
     private String host;
     private String  hostAndPath;
     private String method;

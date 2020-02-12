@@ -60,10 +60,10 @@ public class PluginSearcher {
 
         ServiceLoader<PageProvider> loaders =
                 ServiceLoader.load(PageProvider.class, ucl);
-        if(!(filerquest==null)) {
+        if(!(filerquest == null)) {
             //if (PageProvider.class.getAnnotation(Adress.class).value().equals(filerquest))
                 for(PageProvider pp:loaders){
-                    if(pp.getClass().isAnnotationPresent(Adress.class)&& pp.getClass().getAnnotation(Adress.class).value().equals(filerquest)){
+                    if(pp.getClass().isAnnotationPresent(Adress.class) && pp.getClass().getAnnotation(Adress.class).value().equals(filerquest)){
                         pp.executes();
                     }
                 }
