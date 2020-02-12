@@ -3,10 +3,11 @@ package server;
 import java.util.*;
 
 public class Request {
-    String path;
-    String fullPath;
-   private String method;
+    private String host;
+    private String  hostAndPath;
+    private String method;
     private String fileRequested = null;
+    private byte[] ContentLength;
 
     Map<String,String> params = new HashMap<>();
     List<String> headers = new ArrayList<>();

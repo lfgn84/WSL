@@ -17,7 +17,7 @@
       <module name="Plugin" target="11" />
       <module name="Server" target="11" />
       <module name="SPI" target="11" />
-      <module name="WSL" target="1.5" />
+      <module name="WSL" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
