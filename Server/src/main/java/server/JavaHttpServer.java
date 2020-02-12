@@ -13,11 +13,13 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 // The tutorial can be found just here on the SSaurel's Blog :
 // https://www.ssaurel.com/blog/create-a-simple-http-web-server-in-java
@@ -88,11 +90,21 @@ public class JavaHttpServer implements Runnable{
             out = new PrintWriter(connect.getOutputStream());
             // get binary output stream to client (for requested data)
             dataOut = new BufferedOutputStream(connect.getOutputStream());
+            try {
+                connect.setSoTimeout(15000);
+            }catch (SocketException e){
+                e.printStackTrace();
+            }
 
             while (in.ready()){
                 request.headers.add(in.readLine());
             }
-
+            if(connect.isClosed()){
+                in.close();
+                out.close();
+            }
+            request.setMethod();
+            pl.setGET(request.getMethod());
             String method=request.getMethod();
 
 

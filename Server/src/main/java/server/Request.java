@@ -15,17 +15,17 @@ public class Request {
     public Request(){
     }
 
-    public void setMethod(String method){
-        this.method=method;
-    }
 
-    public String getMethod() {
+
+    public void setMethod() {
         // we parse the request with a string tokenizer
         StringTokenizer parse = new StringTokenizer(this.headers.get(0));
         method = parse.nextToken().toUpperCase(); // we get the HTTP method of the client
         setFileRequested(parse.nextToken().toLowerCase());
-        return method;
+    }
 
+    public String getMethod() {
+        return method;
     }
 
     public String getContentType(){

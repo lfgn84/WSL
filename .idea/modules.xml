@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Client/Client.iml" filepath="$PROJECT_DIR$/Client/Client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FormPlugin/FormPlugin.iml" filepath="$PROJECT_DIR$/FormPlugin/FormPlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IndexPlugin/IndexPlugin.iml" filepath="$PROJECT_DIR$/IndexPlugin/IndexPlugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/Plugin/Plugin.iml" filepath="$PROJECT_DIR$/Plugin/Plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/SPI/SPI.iml" filepath="$PROJECT_DIR$/SPI/SPI.iml" />
       <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />

@@ -1,4 +1,4 @@
-package Plugin;
+package se.iths;
 
 import Spi.Page;
 

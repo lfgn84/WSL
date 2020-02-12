@@ -13,6 +13,8 @@
         <module>Plugin</module>
         <module>Server</module>
         <module>SPI</module>
+        <module>IndexPlugin</module>
+        <module>FormPlugin</module>
     </modules>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -34,7 +36,16 @@
                 <version>1.0</version>
 
             </dependency>
-
+            <dependency>
+                <groupId>WSL</groupId>
+                <artifactId>FormPlugin</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>WSL</groupId>
+                <artifactId>IndexPlugin</artifactId>
+                <version>1.0</version>
+            </dependency>
             <dependency>
                 <groupId>WSL</groupId>
                 <artifactId>Plugin</artifactId>

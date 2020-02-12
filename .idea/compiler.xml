@@ -7,13 +7,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Server" />
-        <module name="SPI" />
         <module name="Client" />
+        <module name="IndexPlugin" />
+        <module name="SPI" />
         <module name="Plugin" />
+        <module name="FormPlugin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Client" target="11" />
+      <module name="FormPlugin" target="11" />
+      <module name="IndexPlugin" target="11" />
       <module name="Plugin" target="11" />
       <module name="Server" target="11" />
       <module name="SPI" target="11" />
