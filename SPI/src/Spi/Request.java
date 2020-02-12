@@ -1,27 +1,28 @@
-package server;
+package Spi;
 
 import java.util.*;
 
 public class Request {
-    private String host;
-    private String  hostAndPath;
-    private String method;
-    private String fileRequested = null;
-    private byte[] ContentLength;
+    public String host;
+    public String  hostAndPath;
+    public String method;
+    public String fileRequested = null;
+    public Byte[] ContentLength;
 
-    Map<String,String> params = new HashMap<>();
-    List<String> headers = new ArrayList<>();
+    public Map<String,String> params = new HashMap<>();
+    public List<String> headers = new ArrayList<>();
 
     public Request(){
     }
 
-
-
-    public void setMethod() {
+    public void parseHeader(){
         // we parse the request with a string tokenizer
         StringTokenizer parse = new StringTokenizer(this.headers.get(0));
         method = parse.nextToken().toUpperCase(); // we get the HTTP method of the client
         setFileRequested(parse.nextToken().toLowerCase());
+        var c  = headers.stream().filter(h -> h.startsWith("Host: ")).findFirst();
+        this.host = c.map(s -> s.substring(s.indexOf(" ") + 1)).orElse("");
+
     }
 
     public String getMethod() {

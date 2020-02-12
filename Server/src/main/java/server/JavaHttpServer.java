@@ -1,5 +1,7 @@
 package server;
 
+import Spi.Request;
+import Spi.Response;
 import se.iths.PluginSearcher;
 
 import java.io.BufferedOutputStream;
@@ -19,7 +21,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 // The tutorial can be found just here on the SSaurel's Blog :
 // https://www.ssaurel.com/blog/create-a-simple-http-web-server-in-java
@@ -84,6 +85,7 @@ public class JavaHttpServer implements Runnable{
         //try (Socket socket = connect)
         try{
             Request request= new Request();
+            Response response= new Response();
             // we read characters from the client via input stream on the socket
             in = new BufferedReader(new InputStreamReader(connect.getInputStream()));
             // we get character output stream to client (for headers)
@@ -103,7 +105,7 @@ public class JavaHttpServer implements Runnable{
                 in.close();
                 out.close();
             }
-            request.setMethod();
+            request.parseHeader();
             pl.setGET(request.getMethod());
             String method=request.getMethod();
 
@@ -141,7 +143,8 @@ public class JavaHttpServer implements Runnable{
                 dataOut.flush();
 
             } else {
-                pl.run();
+                pl.run(response , request);
+
                 // GET or HEAD method
                 if (fileRequested.endsWith("/")) {
 
@@ -161,12 +164,22 @@ public class JavaHttpServer implements Runnable{
                     out.print("Server: Java HTTP Server from Golare har inga Polare\r\n");
                     out.print("Date: " + new Date() + "\r\n");
                     out.print("Content-type: " + content + "\r\n");
-                    out.print("Content-length: " + fileLength + "\r\n");
-                    out.print("\r\n"); // blank line between headers and content, very important !
-                    out.flush(); // flush character output stream buffer
+                    if(response.getContentLenght() > 0) {
+                        out.print("Content-length: " + response.getContentLenght() + "\r\n");
+                        out.print("\r\n"); // blank line between headers and content, very important !
+                        out.flush(); // flush character output stream buffer
 
-                    dataOut.write(fileData, 0, fileLength);
-                    dataOut.flush();
+                        dataOut.write(response.getBody(), 0, (int) response.getContentLenght());
+                        dataOut.flush();
+                    }
+                    else {
+                        out.print("Content-length: " + fileLength + "\r\n");
+                        out.print("\r\n"); // blank line between headers and content, very important !
+                        out.flush(); // flush character output stream buffer
+
+                        dataOut.write(fileData, 0, fileLength);
+                        dataOut.flush();
+                    }
                 }
 
                 if (verbose) {

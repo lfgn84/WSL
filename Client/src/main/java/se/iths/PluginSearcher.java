@@ -24,7 +24,7 @@ public class PluginSearcher {
 
     public static void main(String[] args) {
         PluginSearcher pluginSearcher = new PluginSearcher(args);
-        pluginSearcher.run();
+  //      pluginSearcher.run();
     }
     public void setFilerquest(String filerquest){
         this.filerquest=filerquest;
@@ -53,7 +53,7 @@ public class PluginSearcher {
         return new URLClassLoader(urls);
     }
 
-    public void run() {
+    public void run(Response response,Request request) {
 
         URLClassLoader ucl = createClassLoader(args[0]);
 
@@ -72,7 +72,7 @@ public class PluginSearcher {
                             for (Method m: methods) {
                                 if (m.isAnnotationPresent(GET.class)){
                                     try {
-                                        m.invoke(pages);
+                                        m.invoke(pages,request,response);
                                     } catch (IllegalAccessException | InvocationTargetException e) {
                                         e.printStackTrace();
                                     }

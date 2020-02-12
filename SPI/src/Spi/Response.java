@@ -1,4 +1,4 @@
-package server;
+package Spi;
 
 public class Response {
     String responseCode = "";
@@ -13,4 +13,12 @@ public void setBody(byte[] data){
     contentLenght = data.length;
     }
 public void setBody(String data){ this.setBody(data.getBytes());}
+
+    public byte[] getBody() {
+        return body;
+    }
+
+    public long getContentLenght() {
+        return contentLenght;
+    }
 }

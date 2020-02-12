@@ -1,5 +1,6 @@
 package Spi;
-public interface Page {
-
+public interface Page  {
+    Request request = null;
+    Response response = null;
 
 }
