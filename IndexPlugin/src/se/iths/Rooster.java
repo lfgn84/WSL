@@ -11,7 +11,7 @@ public class Rooster implements Page {
 
     }
     @GET
-    public void hendelWasAPainter(Request request,Response response){
+    public void hendelWasAPainter(Request request, Response response){
         System.out.println("GET Method prints!!");
         response.setBody("<!doctype html>\r\n"
         +"<html lang=\"en\">\r\n"
