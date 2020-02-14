@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -97,15 +98,28 @@ public class JavaHttpServer implements Runnable{
             }catch (SocketException e){
                 e.printStackTrace();
             }
-
+            String s;
             while (in.ready()){
-                request.headers.add(in.readLine());
+                s=in.readLine();
+                request.headers.add(s);
+                if(s.equals("")){
+                    request.parseHeader();
+                    if(request.getContentType().equals("application/x-www-form-urlencoded")) {
+                        char[] st = new char[request.getContentLength()];
+                        for (int i = 0; i < request.getContentLength(); i++) {
+                            st[i] = (char) in.read();
+                        }
+                        request.headers.add(String.copyValueOf(st));
+                        break;
+                    }
+                }
+
             }
             if(connect.isClosed()){
                 in.close();
                 out.close();
             }
-            request.parseHeader();
+           // request.parseHeader();
             pl.setGET(request.getMethod());
             String method=request.getMethod();
 
@@ -143,8 +157,8 @@ public class JavaHttpServer implements Runnable{
                 dataOut.flush();
 
             } else {
-                pl.run(response , request);
 
+                pl.run(response , request);
                 // GET or HEAD method
                 if (fileRequested.endsWith("/")) {
 

@@ -1,5 +1,7 @@
 package Spi;
 
+import javax.print.DocFlavor;
+import java.io.ByteArrayInputStream;
 import java.util.*;
 
 public class Request {
@@ -7,7 +9,7 @@ public class Request {
     public String  hostAndPath;
     public String method;
     public String fileRequested = null;
-    public Byte[] ContentLength;
+    public int ContentLength;
 
     public Map<String,String> params = new HashMap<>();
     public List<String> headers = new ArrayList<>();
@@ -22,6 +24,10 @@ public class Request {
         setFileRequested(parse.nextToken().toLowerCase());
         var c  = headers.stream().filter(h -> h.startsWith("Host: ")).findFirst();
         this.host = c.map(s -> s.substring(s.indexOf(" ") + 1)).orElse("");
+        var b  = headers.stream().filter(h -> h.startsWith("Content-Length: ")).findFirst();
+        String bt=b.map(s -> s.substring(s.indexOf(" ") + 1)).orElse("");
+        if(!(bt.equals(""))){
+        this.ContentLength=Integer.parseInt(bt);}
 
     }
 
@@ -34,7 +40,7 @@ public class Request {
         return c.map(s -> s.substring(s.indexOf(" ") + 1)).orElse("");
     }
     public int getContentLength(){
-        return 0;
+        return this.ContentLength;
     }
     public boolean isKeepAlive(){
         return true;
