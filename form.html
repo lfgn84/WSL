@@ -15,7 +15,7 @@
 </head>
 <body>
 <!-- Example form from HTML5 spec http://www.w3.org/TR/html5/forms.html#writing-a-form's-user-interface -->
-<form method="post" action="/post">
+<form method="get" action="/form">
     <fieldset>
         <legend> Greeter </legend>
         <p><label> Typer greeter's name: <input name="name"></label></p>
@@ -25,8 +25,12 @@
         <legend> Greetings </legend>
         <p><label>Write Greeting : <textarea name="comments"></textarea></label></p>
         <p><button>Send</button></p>
+
     </fieldset>
 
+</form>
+<form action="thankYou.html">
+    <input type="submit" value="Finish">
 </form>
 </body>
 </html>

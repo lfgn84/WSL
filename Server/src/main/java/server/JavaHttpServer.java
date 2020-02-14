@@ -107,18 +107,18 @@ public class JavaHttpServer implements Runnable{
             }
             request.parseHeader();
             pl.setGET(request.getMethod());
-            String method=request.getMethod();
+            String method = request.getMethod();
 
 
             // we get file requested
 
             fileRequested = request.getFileRequested();
-            if(!(fileRequested==null)){
+            if(!(fileRequested == null)){
 
                 pl.setFilerquest(fileRequested);
             }
             // we support only GET and HEAD methods, we check
-            if (!method.equals("GET")  &&  !method.equals("HEAD")) {
+            if (!method.equals("GET")  &&  !method.equals("HEAD") && !method.equals("POST")) {
                 if (verbose) {
                     System.out.println("501 Not Implemented : " + method + " method.");
                 }
@@ -142,7 +142,12 @@ public class JavaHttpServer implements Runnable{
                 dataOut.write(fileData, 0, fileLength);
                 dataOut.flush();
 
-            } else {
+            }
+            else
+                if(method.equals("POST"))
+                    System.out.println(in.toString());
+
+            else {
                 pl.run(response , request);
 
                 // GET or HEAD method
@@ -164,15 +169,14 @@ public class JavaHttpServer implements Runnable{
                     out.print("Server: Java HTTP Server from Golare har inga Polare\r\n");
                     out.print("Date: " + new Date() + "\r\n");
                     out.print("Content-type: " + content + "\r\n");
-                    if(response.getContentLenght() > 0) {
+                    if (response.getContentLenght() > 0) {
                         out.print("Content-length: " + response.getContentLenght() + "\r\n");
                         out.print("\r\n"); // blank line between headers and content, very important !
                         out.flush(); // flush character output stream buffer
 
                         dataOut.write(response.getBody(), 0, (int) response.getContentLenght());
                         dataOut.flush();
-                    }
-                    else {
+                    } else {
                         out.print("Content-length: " + fileLength + "\r\n");
                         out.print("\r\n"); // blank line between headers and content, very important !
                         out.flush(); // flush character output stream buffer
@@ -180,13 +184,14 @@ public class JavaHttpServer implements Runnable{
                         dataOut.write(fileData, 0, fileLength);
                         dataOut.flush();
                     }
-                }
 
-                if (verbose) {
-                    System.out.println("File " + fileRequested + " of type " + content + " returned");
-                }
 
-            }
+                    if (verbose) {
+                        System.out.println("File " + fileRequested + " of type " + content + " returned");
+                    }
+
+                }
+        }
 
         } catch (FileNotFoundException fnfe) {
             try {
