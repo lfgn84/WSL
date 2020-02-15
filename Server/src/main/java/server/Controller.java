@@ -31,12 +31,11 @@ public class Controller {
         pl =new PluginSearcher(prop.getProperty("WSL.Pluginroot"));
         FILE_NOT_FOUND=prop.getProperty("WSL.FILE_NOT_FOUND");
         DEFAULT_FILE=prop.getProperty("WSL.DEFAULT_FILE");
-
     }
 
     public void processHandler() throws IOException {
         if(request.fileRequested.equals("/")){
-            request.fileRequested=DEFAULT_FILE;
+            request.fileRequested="/"+DEFAULT_FILE;
         }
 
         if(Files.exists(Paths.get(WEB_ROOT + request.fileRequested))){

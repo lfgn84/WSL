@@ -106,13 +106,8 @@ public class JavaHttpServer implements Runnable{
                 readInStream(in, request);
 
                  request.parseHeader();
-             //   pl.setMETHOD(request.getMethod());
-              //  pl.run(response,request);
 
                controller.processHandler();
-                /*TODO skicka till controller här
-                 * TODO sedan skicka till out socket
-                 */
                 sendToClient(out,dataOut,response,request);
             } catch (Exception e) {
                 close(in,out,dataOut);
@@ -266,7 +261,7 @@ public class JavaHttpServer implements Runnable{
         private void sendToClient(PrintWriter out, OutputStream dataOut,Response response,Request request) throws IOException {
 //            File file = new File(WEB_ROOT, request.fileRequested);
  //           int fileLength = (int) file.length();
-            String content = getContentType(request.fileRequested);
+           // String content = getContentType(request.fileRequested);
 
             if (request.method.equals("GET")) { // GET method so we return content
           //      byte[] fileData = readFileData(file, fileLength);
@@ -285,7 +280,7 @@ public class JavaHttpServer implements Runnable{
                     dataOut.flush();
                 }
                 if (verbose) {
-                    System.out.println("File " + request.fileRequested + " of type " + content + " returned");
+                    System.out.println("File " + request.fileRequested + " of type " + response.getContentType() + " returned");
                 }
 
             }
