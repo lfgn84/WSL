@@ -19,10 +19,12 @@ public class Controller {
     private PluginSearcher pl;
     private String DEFAULT_FILE ;
     private String FILE_NOT_FOUND ;
-
+    private DBparser dBparser;
+    private long counter;
     public Controller(Request request, Response response,Properties prop)  {
         this.request = request;
         this.response = response;
+        this.counter=0;
         WEB_ROOT = new File(prop.getProperty("WSL.StaticFilesRoot"));
         pl =new PluginSearcher(prop.getProperty("WSL.Pluginroot"));
         FILE_NOT_FOUND=prop.getProperty("WSL.FILE_NOT_FOUND");
@@ -30,6 +32,10 @@ public class Controller {
     }
 
     public void processHandler() throws IOException {
+        /*
+        counter++;
+        dbparser = new DBparser(x,counter);
+         */
         if(request.fileRequested.equals("/")){
             request.fileRequested="/"+DEFAULT_FILE;
         }
