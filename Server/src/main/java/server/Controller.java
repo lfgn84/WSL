@@ -6,18 +6,15 @@ import se.iths.PluginSearcher;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 
 
 public class Controller {
-    private Request request = null;
-    private Response response = null;
-    private Properties prop = new Properties();
+    private Request request ;
+    private Response response;
     private File WEB_ROOT;
     private PluginSearcher pl;
     private String DEFAULT_FILE ;
@@ -26,7 +23,6 @@ public class Controller {
     public Controller(Request request, Response response,Properties prop)  {
         this.request = request;
         this.response = response;
-        this.prop=prop;
         WEB_ROOT = new File(prop.getProperty("WSL.StaticFilesRoot"));
         pl =new PluginSearcher(prop.getProperty("WSL.Pluginroot"));
         FILE_NOT_FOUND=prop.getProperty("WSL.FILE_NOT_FOUND");
