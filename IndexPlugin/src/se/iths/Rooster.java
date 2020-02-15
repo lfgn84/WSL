@@ -27,6 +27,6 @@ public class Rooster implements Page {
         +"p {margin: 0 auto;width: 280px;}\r\n"
         +"@media only screen and (max-width: 280px) {body,p {width: 95%;}\r\n"
         +"h1 {font-size: 1.5em;margin: 0 0 0.3em;}}\r\n"
-        +"</style></head><body><h1>THIS IS THE EASTER EGG </h1><p>Welcome to the Index </p><img src=\"https://media.giphy.com/media/m9SNDj5zWIycPx2V76/giphy.gif\"></body></html>\r\n");
+        +"</style></head><body><h1>THIS IS THE EASTER EGG </h1><p>Welcome to the Index </p><img src=\"https://media.giphy.com/media/m9SNDj5zWIycPx2V76/giphy.gif\"><h1><button type=\"button\" onclick=\"window.location.href = '/'\">Start page</button></h1></body></html>\r\n");
     }
 }

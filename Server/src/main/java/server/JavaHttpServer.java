@@ -2,15 +2,12 @@ package server;
 
 import Spi.Request;
 import Spi.Response;
-import se.iths.PluginSearcher;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
