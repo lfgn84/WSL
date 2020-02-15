@@ -70,10 +70,17 @@ public class PluginSearcher {
                         pages -> {
                             Method[] methods = pages.getClass().getDeclaredMethods();
                             for (Method m: methods) {
-                                if (m.isAnnotationPresent(GET.class)){
+                                if (m.isAnnotationPresent(GET.class)) {
                                     try {
                                         m.invoke(pages,request,response);
                                     } catch (IllegalAccessException | InvocationTargetException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                else if(m.isAnnotationPresent(POST.class)){
+                                    try{
+                                        m.invoke(pages,request,response);
+                                    }catch (IllegalAccessException | InvocationTargetException e){
                                         e.printStackTrace();
                                     }
                                 }

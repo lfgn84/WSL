@@ -4,6 +4,7 @@ import Spi.Request;
 import Spi.Response;
 import se.iths.PluginSearcher;
 
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,6 +37,7 @@ public class JavaHttpServer implements Runnable{
     static final String FILE_NOT_FOUND = "404.html";
     static final String METHOD_NOT_SUPPORTED = "not_supported.html";
     // port to listen connection
+    long counter;
     static final int PORT = 80;
 
     // verbose mode
@@ -101,6 +103,7 @@ public class JavaHttpServer implements Runnable{
             String s;
             while (in.ready()){
                 s=in.readLine();
+
                 request.headers.add(s);
                 if(s.equals("")){
                     request.parseHeader();
@@ -110,6 +113,13 @@ public class JavaHttpServer implements Runnable{
                             st[i] = (char) in.read();
                         }
                         request.headers.add(String.copyValueOf(st));
+                        String x = String.copyValueOf(st);
+                        counter++;
+                        DBparser dbparser = new DBparser(x,counter);                        //System.out.println("Parameters : " + x.substring(x.lastIndexOf(x)));
+
+
+
+
                         break;
                     }
                 }
@@ -159,8 +169,14 @@ public class JavaHttpServer implements Runnable{
 
             }
             else
-                if(method.equals("POST"))
-                    System.out.println(in.toString());
+                if(method.equals("POST") && request.getContentType().equals("application/x-www-form-urlencoded")) {
+                    char[] chars = new char[request.getContentLength()];
+                    int i = in.read(chars);
+                    for (char c : chars )
+                        System.out.println(""+c);
+
+                }
+
 
             else {
                 pl.run(response , request);

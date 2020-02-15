@@ -16,6 +16,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Client" target="11" />
+      <module name="DBparser" target="11" />
       <module name="FormPlugin" target="11" />
       <module name="IndexPlugin" target="11" />
       <module name="Plugin" target="11" />
