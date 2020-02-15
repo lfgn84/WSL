@@ -4,19 +4,14 @@ import Spi.Request;
 import Spi.Response;
 import se.iths.PluginSearcher;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -24,16 +19,16 @@ import java.util.concurrent.Executors;
 // https://www.ssaurel.com/blog/create-a-simple-http-web-server-in-java
 // Each Client Connection will be managed in a dedicated Thread
 public class JavaHttpServer implements Runnable{
-    List<String> listan =new ArrayList<>();
+    private static Properties prop;
     private String [] args;
-    static final File WEB_ROOT = new File(".");
+    static  File WEB_ROOT = null;
     static ExecutorService threadManager = Executors.newCachedThreadPool();
-    static final String DEFAULT_FILE = "index.html";
-    static final String FORM_FILE = "form.html";
-    static final String FILE_NOT_FOUND = "404.html";
-    static final String METHOD_NOT_SUPPORTED = "not_supported.html";
+    static  String DEFAULT_FILE =null;
+    static  String FORM_FILE =null;
+    static  String FILE_NOT_FOUND =null;
+    static  String METHOD_NOT_SUPPORTED =null;
     // port to listen connection
-    static final int PORT = 80;
+    static  int PORT ;
 
     // verbose mode
     static final boolean verbose = true;
@@ -47,6 +42,16 @@ public class JavaHttpServer implements Runnable{
     }
 
     public static void main(String[] args) {
+        prop=new Properties();
+        try (FileInputStream setingFile = new FileInputStream("./Settings.properties")) {
+            prop.load(setingFile);
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+        WEB_ROOT=new File((String) prop.get("WSL.StaticFilesRoot"));
+        PORT = Integer.parseInt( prop.get("WSL.port").toString());
         try {
             ServerSocket serverConnect = new ServerSocket(PORT);
             System.out.println("Server started.\nListening for connections on port : " + PORT + " ...\n");
@@ -72,7 +77,7 @@ public class JavaHttpServer implements Runnable{
 
     @Override
     public void run() {
-        PluginSearcher pl = new PluginSearcher(args);
+      //  PluginSearcher pl = new PluginSearcher(args);
         // we manage our particular client connection
         BufferedReader in = null;
         PrintWriter out = null;
@@ -89,6 +94,8 @@ public class JavaHttpServer implements Runnable{
             try {
                 Request request = new Request();
                 Response response = new Response();
+
+                Controller controller = new Controller(request,response,prop);
                 // we read characters from the client via input stream on the socket
                 in = new BufferedReader(new InputStreamReader(connect.getInputStream()));
                 // we get character output stream to client (for headers)
@@ -96,17 +103,17 @@ public class JavaHttpServer implements Runnable{
                 // get binary output stream to client (for requested data)
                 dataOut = new BufferedOutputStream(connect.getOutputStream());
 
-                readInStream(in, request, response);
+                readInStream(in, request);
 
                  request.parseHeader();
-                pl.setMETHOD(request.getMethod());
-                pl.run(response,request);
-                String method = request.getMethod();
-                sendToClient(out,dataOut,response,request);
+             //   pl.setMETHOD(request.getMethod());
+              //  pl.run(response,request);
+
+               controller.processHandler();
                 /*TODO skicka till controller här
                  * TODO sedan skicka till out socket
                  */
-
+                sendToClient(out,dataOut,response,request);
             } catch (Exception e) {
                 close(in,out,dataOut);
 
@@ -116,7 +123,7 @@ public class JavaHttpServer implements Runnable{
         }
         close(in,out,dataOut);
     }
-    private void readInStream(BufferedReader in,Request request,Response response) throws IOException {
+    private void readInStream(BufferedReader in,Request request) throws IOException {
         String s;
         while (in.ready()) {
             s = in.readLine();
@@ -257,18 +264,18 @@ public class JavaHttpServer implements Runnable{
         }
 
         private void sendToClient(PrintWriter out, OutputStream dataOut,Response response,Request request) throws IOException {
-            File file = new File(WEB_ROOT, request.fileRequested);
-            int fileLength = (int) file.length();
+//            File file = new File(WEB_ROOT, request.fileRequested);
+ //           int fileLength = (int) file.length();
             String content = getContentType(request.fileRequested);
 
             if (request.method.equals("GET")) { // GET method so we return content
           //      byte[] fileData = readFileData(file, fileLength);
 
                 // send HTTP Headers
-                out.print("HTTP/1.1 200 OK\r\n");
+                out.print("HTTP/1.1 "+response.getResponseCode()+"\r\n");
                 out.print("Server: Java HTTP Server from Golare har inga Polare\r\n");
                 out.print("Date: " + new Date() + "\r\n");
-                out.print("Content-type: " + content + "\r\n");
+                out.print("Content-type: " + response.getContentType() + "\r\n");
                 if (response.getContentLenght() > 0) {
                     out.print("Content-length: " + response.getContentLenght() + "\r\n");
                     out.print("\r\n"); // blank line between headers and content, very important !
@@ -276,16 +283,7 @@ public class JavaHttpServer implements Runnable{
 
                     dataOut.write(response.getBody(), 0, (int) response.getContentLenght());
                     dataOut.flush();
-                }/* else {
-                    out.print("Content-length: " + fileLength + "\r\n");
-                    out.print("\r\n"); // blank line between headers and content, very important !
-                    out.flush(); // flush character output stream buffer
-
-                    dataOut.write(fileData, 0, fileLength);
-                    dataOut.flush();
-                }*/
-
-
+                }
                 if (verbose) {
                     System.out.println("File " + request.fileRequested + " of type " + content + " returned");
                 }

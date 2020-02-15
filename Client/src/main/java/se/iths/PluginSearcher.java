@@ -16,14 +16,14 @@ import java.util.ServiceLoader;
 
 public class PluginSearcher {
     private String filerquest=null;
-    private String[] args;
+    private String args;
     private Class METHOD =null;
-    public PluginSearcher(String[] args){
+    public PluginSearcher(String args){
         this.args=args;
     }
 
     public static void main(String[] args) {
-        PluginSearcher pluginSearcher = new PluginSearcher(args);
+   //     PluginSearcher pluginSearcher = new PluginSearcher(args);
   //      pluginSearcher.run();
     }
     public void setFilerquest(String filerquest){
@@ -65,7 +65,7 @@ public class PluginSearcher {
 
     public void run(Response response,Request request) {
 
-        URLClassLoader ucl = createClassLoader(args[0]);
+        URLClassLoader ucl = createClassLoader(args);
 
             ServiceLoader<Page> getload =
                     ServiceLoader.load(Page.class, ucl);
@@ -75,7 +75,7 @@ public class PluginSearcher {
                         .filter(p -> p.type().isAnnotationPresent(Adress.class))
                         .filter(p -> p.type().getAnnotation(Adress.class).value().equals(request.fileRequested))
                         .map(ServiceLoader.Provider::get).findFirst();
-
+                setMETHOD(request.getMethod().toUpperCase());
                 page.ifPresent(
                         pages -> {
                             Method[] methods = pages.getClass().getDeclaredMethods();
