@@ -17,7 +17,7 @@ import java.util.ServiceLoader;
 public class PluginSearcher {
     private String filerquest=null;
     private String[] args;
-    private String GET=null;
+    private Class METHOD =null;
     public PluginSearcher(String[] args){
         this.args=args;
     }
@@ -30,8 +30,18 @@ public class PluginSearcher {
         this.filerquest=filerquest;
     }
 
-    public void setGET(String GET) {
-        this.GET = GET;
+    public void setMETHOD(String METHOD) {
+        switch (METHOD) {
+            case "GET":
+                this.METHOD = GET.class;
+                break;
+            case "POST":
+                this.METHOD = POST.class;
+                break;
+            case "HEAD":
+                this.METHOD = HEAD.class;
+                break;
+        }
     }
 
     private URLClassLoader createClassLoader(String fileLocation) {
@@ -63,14 +73,14 @@ public class PluginSearcher {
                 Optional<Page> page = getload
                         .stream()
                         .filter(p -> p.type().isAnnotationPresent(Adress.class))
-                        .filter(p -> p.type().getAnnotation(Adress.class).value().equals(filerquest))
+                        .filter(p -> p.type().getAnnotation(Adress.class).value().equals(request.fileRequested))
                         .map(ServiceLoader.Provider::get).findFirst();
 
                 page.ifPresent(
                         pages -> {
                             Method[] methods = pages.getClass().getDeclaredMethods();
                             for (Method m: methods) {
-                                if (m.isAnnotationPresent(GET.class)){
+                                if (m.isAnnotationPresent(METHOD)){
                                     try {
                                         m.invoke(pages,request,response);
                                     } catch (IllegalAccessException | InvocationTargetException e) {
