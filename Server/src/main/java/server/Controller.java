@@ -20,8 +20,8 @@ public class Controller {
     private Properties prop = new Properties();
     private File WEB_ROOT;
     private PluginSearcher pl;
-    private   String DEFAULT_FILE = "/index.html";
-    private   String FILE_NOT_FOUND = "/404.html";
+    private String DEFAULT_FILE ;
+    private String FILE_NOT_FOUND ;
 
     public Controller(Request request, Response response,Properties prop)  {
         this.request = request;
@@ -29,6 +29,9 @@ public class Controller {
         this.prop=prop;
         WEB_ROOT = new File(prop.getProperty("WSL.StaticFilesRoot"));
         pl =new PluginSearcher(prop.getProperty("WSL.Pluginroot"));
+        FILE_NOT_FOUND=prop.getProperty("WSL.FILE_NOT_FOUND");
+        DEFAULT_FILE=prop.getProperty("WSL.DEFAULT_FILE");
+
     }
 
     public void processHandler() throws IOException {
