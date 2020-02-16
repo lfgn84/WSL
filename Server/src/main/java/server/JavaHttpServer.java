@@ -33,6 +33,8 @@ public class JavaHttpServer implements Runnable{
     static ExecutorService threadManager = Executors.newCachedThreadPool();
     static final String DEFAULT_FILE = "index.html";
     static final String FORM_FILE = "form.html";
+    static final String PDF_FILE = "pdf.html";
+    static final String JS_FILE = "JavaScriptFile.html";
     static final String FILE_NOT_FOUND = "404.html";
     static final String METHOD_NOT_SUPPORTED = "not_supported.html";
     // port to listen connection
@@ -257,6 +259,8 @@ public class JavaHttpServer implements Runnable{
                 return "text/html";
             if (fileRequested.endsWith(".pdf"))
                 return "application/pdf";
+        if(fileRequested.endsWith(".js"))
+            return "text/x-js";
             if(fileRequested.endsWith(".css"))
                 return "text/css";
             else
