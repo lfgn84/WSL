@@ -32,10 +32,10 @@ public class Controller {
     }
 
     public void processHandler() throws IOException {
-        /*
+
         counter++;
-        dbparser = new DBparser(x,counter);
-         */
+        dBparser = new DBparser(request.headers.get(13),counter);
+
         if(request.fileRequested.equals("/")){
             request.fileRequested="/"+DEFAULT_FILE;
         }
