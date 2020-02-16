@@ -82,7 +82,7 @@ public class Controller {
                     response.setContentType("image/tiff");
                     break;
                 case ".js":
-                    response.setContentType("text/x-js");
+                    response.setContentType("application/javascript");
                     break;
                 case ".css":
                     response.setContentType("text/css");
