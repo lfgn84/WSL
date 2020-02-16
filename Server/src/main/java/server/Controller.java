@@ -13,6 +13,7 @@ import java.util.Properties;
 
 
 public class Controller {
+    private String FORM_FILE;
     private Request request ;
     private Response response;
     private File WEB_ROOT;
@@ -21,11 +22,10 @@ public class Controller {
     private String FILE_NOT_FOUND ;
     private DBparser dBparser;
     private Properties prop;
-    private long counter;
+
     public Controller(Request request, Response response,Properties prop)  {
         this.request = request;
         this.response = response;
-        this.counter=0;
         this.prop=prop;
         WEB_ROOT = new File(prop.getProperty("WSL.StaticFilesRoot"));
         pl =new PluginSearcher(prop.getProperty("WSL.Pluginroot"));
@@ -42,16 +42,93 @@ public class Controller {
         }
         else if(request.getMethod().equals("POST")){
             Postprocess();
-           // Getprocess();
+//            response.setResponseCode("200 ok");
+//            response.setContentType("application/json");
+            // Getprocess();
         }
     }
     private void Postprocess() throws IOException{
-        counter++;
-        dBparser = new DBparser(request.headers.get(13),counter,prop,response);
+
+        dBparser = new DBparser(request.headers.get(13),prop,response);
+        if(request.fileRequested.equals("/")){
+            request.fileRequested="/"+FORM_FILE;
+        }
+
+        if(Files.exists(Paths.get(WEB_ROOT + request.fileRequested))) {
+            response.setResponseCode("200 ok");
+            String s = request.fileRequested.toLowerCase();
+            int start=s.indexOf(".");
+            switch(s.substring(start,s.length())) {
+                case ".jpg":
+                    response.setContentType("image/jpeg");
+                    break;
+                case ".jpeg":
+                    response.setContentType("image/jpeg");
+                    break;
+                case ".jfif":
+                    response.setContentType("image/jpeg");
+                    break;
+                case ".pjpeg":
+                    response.setContentType("image/jpeg");
+                    break;
+                case "pjp":
+                    response.setContentType("image/jpeg");
+                    break;
+                case ".png":
+                    response.setContentType("image/png");
+                    break;
+                case ".apng":
+                    response.setContentType("image/apng");
+                    break;
+                case ".gif":
+                    response.setContentType("image/gif");
+                    break;
+                case ".bmp":
+                    response.setContentType("image/bmp");
+                    break;
+                case ".svg":
+                    response.setContentType("image/svg+xml");
+                    break;
+                case ".tif":
+                    response.setContentType("image/tiff");
+                    break;
+                case ".tiff":
+                    response.setContentType("image/tiff");
+                    break;
+                case ".js":
+                    response.setContentType("application/javascript");
+                    break;
+                case ".css":
+                    response.setContentType("text/css");
+                    break;
+                case ".json":
+                    response.setContentType("application/json");
+                    break;
+                case ".pdf":
+                    response.setContentType("application/pdf");
+                    break;
+                case ".htm":
+                case ".html":
+                    response.setContentType("text/html");
+                    break;
+
+                default:
+                    response.setContentType("text/plain");
+            }
+            this.fileReader(request.fileRequested);
+
+        }
+        else {
+            pl.run(response,request);
+        }
+
+        if(response.getContentLenght()<=0){
+            response.setResponseCode("404 Not Found");
+            response.setContentType("text/html");
+            fileReader(FILE_NOT_FOUND);
+        }
     }
     private void Getprocess() throws IOException {
-
-
 
 
 

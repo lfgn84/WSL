@@ -7,6 +7,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.*;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.bson.Document;
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Projections.*;
@@ -19,7 +20,7 @@ import java.util.Properties;
 
 public class DBparser {
 
-    public DBparser (String toParse, long counter, Properties prop, Response response) throws IOException {
+    public DBparser (String toParse, Properties prop, Response response) throws IOException {
         ProcessBuilder pb = new ProcessBuilder();
         ProcessBuilder pb1 = new ProcessBuilder();
         pb.command(prop.getProperty("WSL.mongopath")+"mongod");
@@ -51,6 +52,7 @@ public class DBparser {
             @Override
             public void apply(final Document document) {
                 response.setBody(document.toJson());
+                System.out.println(document.toJson());
             }
         };
 
