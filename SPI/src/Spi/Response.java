@@ -18,6 +18,22 @@ public void setBody(String data){ this.setBody(data.getBytes());}
         return body;
     }
 
+    public String getResponseCode() {
+        return responseCode;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public void setResponseCode(String responseCode) {
+        this.responseCode = responseCode;
+    }
+
     public long getContentLenght() {
         return contentLenght;
     }

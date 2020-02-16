@@ -3,7 +3,7 @@ package Plugin;
 import Spi.*;
 
 
-@Adress("/index.html")
+@Adress("/haha")
 public class TestProvider  implements Page {
 
     public void executes() {
@@ -11,8 +11,9 @@ public class TestProvider  implements Page {
 
     }
     @GET
-    public void hendelWasAPainter(Request request,Response response){
-        System.out.println("GET Method prints!!");
+    public void hendelWasBaroqueComposer(Request request,Response response){
+        response.setContentType("text/html");
+        response.setResponseCode("200 ok");
         response.setBody("<!doctype html>\r\n"
         +"<html lang=\"en\">\r\n"
         +"<head>\r\n"
