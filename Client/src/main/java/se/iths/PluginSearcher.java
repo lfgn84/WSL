@@ -16,22 +16,32 @@ import java.util.ServiceLoader;
 
 public class PluginSearcher {
     private String filerquest=null;
-    private String[] args;
-    private String GET=null;
-    public PluginSearcher(String[] args){
+    private String args;
+    private Class METHOD =null;
+    public PluginSearcher(String args){
         this.args=args;
     }
 
     public static void main(String[] args) {
-        PluginSearcher pluginSearcher = new PluginSearcher(args);
-  //      pluginSearcher.run();
+        //     PluginSearcher pluginSearcher = new PluginSearcher(args);
+        //      pluginSearcher.run();
     }
     public void setFilerquest(String filerquest){
         this.filerquest=filerquest;
     }
 
-    public void setGET(String GET) {
-        this.GET = GET;
+    public void setMETHOD(String METHOD) {
+        switch (METHOD) {
+            case "GET":
+                this.METHOD = GET.class;
+                break;
+            case "POST":
+                this.METHOD = POST.class;
+                break;
+            case "HEAD":
+                this.METHOD = HEAD.class;
+                break;
+        }
     }
 
     private URLClassLoader createClassLoader(String fileLocation) {
@@ -55,38 +65,31 @@ public class PluginSearcher {
 
     public void run(Response response,Request request) {
 
-        URLClassLoader ucl = createClassLoader(args[0]);
+        URLClassLoader ucl = createClassLoader(args);
 
-            ServiceLoader<Page> getload =
-                    ServiceLoader.load(Page.class, ucl);
+        ServiceLoader<Page> getload =
+                ServiceLoader.load(Page.class, ucl);
 
-                Optional<Page> page = getload
-                        .stream()
-                        .filter(p -> p.type().isAnnotationPresent(Adress.class))
-                        .filter(p -> p.type().getAnnotation(Adress.class).value().equals(filerquest))
-                        .map(ServiceLoader.Provider::get).findFirst();
-
-                page.ifPresent(
-                        pages -> {
-                            Method[] methods = pages.getClass().getDeclaredMethods();
-                            for (Method m: methods) {
-                                if (m.isAnnotationPresent(GET.class)) {
-                                    try {
-                                        m.invoke(pages,request,response);
-                                    } catch (IllegalAccessException | InvocationTargetException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                else if(m.isAnnotationPresent(POST.class)){
-                                    try{
-                                        m.invoke(pages,request,response);
-                                    }catch (IllegalAccessException | InvocationTargetException e){
-                                        e.printStackTrace();
-                                    }
-                                }
+        Optional<Page> page = getload
+                .stream()
+                .filter(p -> p.type().isAnnotationPresent(Adress.class))
+                .filter(p -> p.type().getAnnotation(Adress.class).value().equals(request.fileRequested))
+                .map(ServiceLoader.Provider::get).findFirst();
+        setMETHOD(request.getMethod().toUpperCase());
+        page.ifPresent(
+                pages -> {
+                    Method[] methods = pages.getClass().getDeclaredMethods();
+                    for (Method m: methods) {
+                        if (m.isAnnotationPresent(METHOD)){
+                            try {
+                                m.invoke(pages,request,response);
+                            } catch (IllegalAccessException | InvocationTargetException e) {
+                                e.printStackTrace();
                             }
                         }
-                );
+                    }
+                }
+        );
 
 
 
