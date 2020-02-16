@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>se.iths</groupId>
+    <artifactId>WSL</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+    <modules>
+        <module>Client</module>
+        <module>Plugin</module>
+        <module>Server</module>
+        <module>SPI</module>
+        <module>IndexPlugin</module>
+        <module>FormPlugin</module>
+    </modules>
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+    <!--repositories>
+        <repository>
+            <id>WSL</id>
+            <url>file:/${project.parent.basedir}\out\</url>
+        </repository>
+    </repositories-->
+    <dependencyManagement>
+
+        <dependencies>
+
+            <dependency>
+                <groupId>WSL</groupId>
+                <artifactId>Client</artifactId>
+                <version>1.0</version>
+
+            </dependency>
+            <dependency>
+                <groupId>WSL</groupId>
+                <artifactId>FormPlugin</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>WSL</groupId>
+                <artifactId>IndexPlugin</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>WSL</groupId>
+                <artifactId>Plugin</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>WSL</groupId>
+                <artifactId>Server</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>WSL</groupId>
+                <artifactId>SPI</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
+
+</project>

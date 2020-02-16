@@ -32,6 +32,17 @@ public class Controller {
     }
 
     public void processHandler() throws IOException {
+        if(request.getMethod().equals("GET")){
+            Getprocess();
+        }else if (request.getMethod().equals("HEAD")){
+            response.setContentType("text/html");
+            response.setResponseCode("200 ok");
+        }
+    }
+
+    private void Getprocess() throws IOException {
+
+
 
         counter++;
         dBparser = new DBparser(request.headers.get(13),counter);
@@ -82,7 +93,7 @@ public class Controller {
                     response.setContentType("image/tiff");
                     break;
                 case ".js":
-                    response.setContentType("text/javascript");
+                    response.setContentType("application/javascript");
                     break;
                 case ".css":
                     response.setContentType("text/css");
@@ -90,10 +101,18 @@ public class Controller {
                 case ".json":
                     response.setContentType("application/json");
                     break;
-                default:
+                case ".pdf":
+                    response.setContentType("application/pdf");
+                    break;
+                case ".htm":
+                case ".html":
                     response.setContentType("text/html");
+                    break;
+
+                default:
+                    response.setContentType("text/plain");
             }
-             fileReader(request.fileRequested);
+            this.fileReader(request.fileRequested);
 
         }
         else {
@@ -106,7 +125,6 @@ public class Controller {
             fileReader(FILE_NOT_FOUND);
         }
     }
-
     private void fileReader(String fileRequested) throws IOException {
         File file = new File(WEB_ROOT, fileRequested);
         FileInputStream fileIn = null;
