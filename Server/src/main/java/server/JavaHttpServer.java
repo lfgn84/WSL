@@ -19,16 +19,7 @@ public class JavaHttpServer implements Runnable{
     private static Properties prop;
     static  File WEB_ROOT = null;
     static ExecutorService threadManager = Executors.newCachedThreadPool();
-<<<<<<< HEAD
-    static final String DEFAULT_FILE = "index.html";
-    static final String FORM_FILE = "form.html";
-    static final String PDF_FILE = "pdf.html";
-    static final String JS_FILE = "JavaScriptFile.html";
-    static final String FILE_NOT_FOUND = "404.html";
-    static final String METHOD_NOT_SUPPORTED = "not_supported.html";
-=======
 
->>>>>>> master
     // port to listen connection
     static  int PORT ;
 
