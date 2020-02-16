@@ -8,4 +8,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})       // This annotation can only be applied to class methods.
 public @interface Adress {
     String value() default "/default";
+    String values() default "locahps";
 }

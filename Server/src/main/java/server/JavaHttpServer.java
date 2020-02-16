@@ -73,7 +73,7 @@ public class JavaHttpServer implements Runnable{
         BufferedOutputStream dataOut = null;
 
         try {
-            connect.setSoTimeout(15000);
+            connect.setSoTimeout(10000);
         } catch (SocketException e) {
             e.printStackTrace();
         }

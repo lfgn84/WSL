@@ -40,11 +40,60 @@ public class Controller {
             request.fileRequested="/"+DEFAULT_FILE;
         }
 
-        if(Files.exists(Paths.get(WEB_ROOT + request.fileRequested))){
+        if(Files.exists(Paths.get(WEB_ROOT + request.fileRequested))) {
             response.setResponseCode("200 ok");
-            response.setContentType("text/html");
-
-            fileReader(request.fileRequested);
+            String s = request.fileRequested.toLowerCase();
+            int start=s.indexOf(".");
+            switch(s.substring(start,s.length())) {
+                case ".jpg":
+                    response.setContentType("image/jpeg");
+                    break;
+                case ".jpeg":
+                    response.setContentType("image/jpeg");
+                    break;
+                case ".jfif":
+                    response.setContentType("image/jpeg");
+                    break;
+                case ".pjpeg":
+                    response.setContentType("image/jpeg");
+                    break;
+                case "pjp":
+                    response.setContentType("image/jpeg");
+                    break;
+                case ".png":
+                    response.setContentType("image/png");
+                    break;
+                case ".apng":
+                    response.setContentType("image/apng");
+                    break;
+                case ".gif":
+                    response.setContentType("image/gif");
+                    break;
+                case ".bmp":
+                    response.setContentType("image/bmp");
+                    break;
+                case ".svg":
+                    response.setContentType("image/svg+xml");
+                    break;
+                case ".tif":
+                    response.setContentType("image/tiff");
+                    break;
+                case ".tiff":
+                    response.setContentType("image/tiff");
+                    break;
+                case ".js":
+                    response.setContentType("text/javascript");
+                    break;
+                case ".css":
+                    response.setContentType("text/css");
+                    break;
+                case ".json":
+                    response.setContentType("application/json");
+                    break;
+                default:
+                    response.setContentType("text/html");
+            }
+             fileReader(request.fileRequested);
 
         }
         else {
