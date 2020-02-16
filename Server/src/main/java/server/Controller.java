@@ -82,7 +82,7 @@ public class Controller {
                     response.setContentType("image/tiff");
                     break;
                 case ".js":
-                    response.setContentType("text/javascript");
+                    response.setContentType("text/x-js");
                     break;
                 case ".css":
                     response.setContentType("text/css");
@@ -90,8 +90,16 @@ public class Controller {
                 case ".json":
                     response.setContentType("application/json");
                     break;
-                default:
+                case ".pdf":
+                    response.setContentType("application/pdf");
+                    break;
+                case ".htm":
+                case ".html":
                     response.setContentType("text/html");
+                    break;
+
+                default:
+                    response.setContentType("text/plain");
             }
              fileReader(request.fileRequested);
 
