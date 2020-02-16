@@ -122,7 +122,6 @@ public class JavaHttpServer implements Runnable{
                     break;
                 }
             }
-
         }
 
     }
@@ -164,6 +163,10 @@ public class JavaHttpServer implements Runnable{
 
                     dataOut.write(response.getBody(), 0, (int) response.getContentLenght());
                     dataOut.flush();
+                }else {
+                    out.print("Content-length: " + response.getContentLenght() + "\r\n");
+                    out.print("\r\n"); // blank line between headers and content, very important !
+                    out.flush(); // flush character output stream buffer
                 }
                 if (verbose) {
                     System.out.println("File " + request.fileRequested + " of type " + response.getContentType() + " returned");

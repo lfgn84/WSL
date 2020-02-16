@@ -32,6 +32,17 @@ public class Controller {
     }
 
     public void processHandler() throws IOException {
+        if(request.getMethod().equals("GET")){
+            Getprocess();
+        }else if (request.getMethod().equals("HEAD")){
+            response.setContentType("text/html");
+            response.setResponseCode("200 ok");
+        }
+    }
+
+    private void Getprocess() throws IOException {
+
+
         /*
         counter++;
         dbparser = new DBparser(x,counter);
@@ -101,7 +112,7 @@ public class Controller {
                 default:
                     response.setContentType("text/plain");
             }
-             fileReader(request.fileRequested);
+            this.fileReader(request.fileRequested);
 
         }
         else {
@@ -114,7 +125,6 @@ public class Controller {
             fileReader(FILE_NOT_FOUND);
         }
     }
-
     private void fileReader(String fileRequested) throws IOException {
         File file = new File(WEB_ROOT, fileRequested);
         FileInputStream fileIn = null;

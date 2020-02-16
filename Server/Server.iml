@@ -11,14 +11,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: javax.json:javax.json-api:1.1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish:javax.json:1.0.4" level="project" />
-    <orderEntry type="library" name="Maven: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-sync:3.12.1" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:bson:3.12.1" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-core:3.12.1" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver:3.12.1" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:3.12.1" level="project" />
     <orderEntry type="module" module-name="Client" />
     <orderEntry type="module" module-name="SPI" />
     <orderEntry type="library" name="Maven: javax.json:javax.json-api:1.1.4" level="project" />
