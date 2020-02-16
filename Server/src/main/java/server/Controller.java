@@ -42,7 +42,7 @@ public class Controller {
         }
         else if(request.getMethod().equals("POST")){
             Postprocess();
-            Getprocess();
+           // Getprocess();
         }
     }
     private void Postprocess() throws IOException{

@@ -22,7 +22,7 @@ public class DBparser {
     public DBparser (String toParse, long counter, Properties prop, Response response) throws IOException {
         ProcessBuilder pb = new ProcessBuilder();
         ProcessBuilder pb1 = new ProcessBuilder();
-        pb.command(prop.getProperty("WSL.mongodbpath")+"mongod");
+        pb.command(prop.getProperty("WSL.mongopath")+"mongod");
         pb1.command(prop.getProperty("WSL.mongopath")+"mongo");
         Process p;
         Process m;
