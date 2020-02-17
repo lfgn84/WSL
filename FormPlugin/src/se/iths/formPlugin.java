@@ -11,8 +11,7 @@ import java.util.Date;
 
 public class formPlugin implements Page  {
     File file = new File(".form.html");
-//    int fileLength = (int) file.length();
-//    String content = getContentType(fileRequested);
+
     @POST
     public void execute(Request request, Response response){
 
