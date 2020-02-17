@@ -1,40 +1,22 @@
 package server;
 
 import Spi.Response;
-import com.mongodb.Block;
+import com.mongodb.*;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.*;
-import jdk.swing.interop.SwingInterOpUtils;
 import org.bson.Document;
-import static com.mongodb.client.model.Filters.*;
-import static com.mongodb.client.model.Projections.*;
+
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 public class DBparser {
 
-    public DBparser (String toParse, Properties prop, Response response) throws IOException {
-        ProcessBuilder pb = new ProcessBuilder();
-        ProcessBuilder pb1 = new ProcessBuilder();
-        pb.command(prop.getProperty("WSL.mongopath")+"mongod");
-        pb1.command(prop.getProperty("WSL.mongopath")+"mongo");
-        Process p;
-        Process m;
-
-        p = pb.start();
-        m = pb1.start();
-        System.out.println(p.isAlive());
-        System.out.println(m.isAlive());
-//            p.destroyForcibly();
-//            m.destroyForcibly();
-
+    public DBparser (String toParse, Properties prop, Response response) {
 
         List<Document> documents = new ArrayList<Document>(); // Creating a Document ArrayList named "documents" where we will save our documents.
         String y = toParse.substring(toParse.lastIndexOf(toParse));
@@ -45,7 +27,7 @@ public class DBparser {
         String commentPlus = splitBySpace[2].replace("comments=","").replace("+"," ");
         String comment = commentPlus.replace("+"," ");
 
-        MongoClient mongoClient = MongoClients.create();    // Creating a mongoClient to connect with Mongodb
+        MongoClient mongoClient = MongoClients.create("mongodb://Localhost:27017");    // Creating a mongoClient to connect with Mongodb
         MongoDatabase database = mongoClient.getDatabase("WSL"); // Creating our new database through our mongoClient (database : "lab3")
         MongoCollection<Document> coll = database.getCollection("Greetings"); // Creating our new collection in our new database (collection : "restaurants")
         Block<Document> printBlock = new Block<Document>() { // Creating a "printBlock" method that will identify and print out our documents on blocks in Json format.
@@ -65,14 +47,20 @@ public class DBparser {
         // Adding our created documents to our "documents" ArrayList.
 
 
+        try {
+            coll.find();
+            coll.insertOne(doc1); // Inserting our documents on our ArrayList to our created collection of documents ("restaurants") : 'coll', using the "insertMany()" mongodb command.
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        coll.insertOne(doc1); // Inserting our documents on our ArrayList to our created collection of documents ("restaurants") : 'coll', using the "insertMany()" mongodb command.
         System.out.println("");
         System.out.println("ALL DOCUMENTS:\n");
         coll.find().forEach(printBlock); // Printing all block of documents in  our collection using "find()"  mongodb command.
         System.out.println("");
 
-        p.destroyForcibly();
-        m.destroyForcibly();
+    mongoClient.close();
+
+
     }
 }

@@ -49,84 +49,14 @@ public class Controller {
     }
     private void Postprocess() throws IOException{
 
-        dBparser = new DBparser(request.headers.get(13),prop,response);
-        if(request.fileRequested.equals("/")){
-            request.fileRequested="/"+FORM_FILE;
-        }
+        dBparser = new DBparser(request.headers.get(request.headers.size()-1),prop,response);
 
-        if(Files.exists(Paths.get(WEB_ROOT + request.fileRequested))) {
+
+
             response.setResponseCode("200 ok");
-            String s = request.fileRequested.toLowerCase();
-            int start=s.indexOf(".");
-            switch(s.substring(start,s.length())) {
-                case ".jpg":
-                    response.setContentType("image/jpeg");
-                    break;
-                case ".jpeg":
-                    response.setContentType("image/jpeg");
-                    break;
-                case ".jfif":
-                    response.setContentType("image/jpeg");
-                    break;
-                case ".pjpeg":
-                    response.setContentType("image/jpeg");
-                    break;
-                case "pjp":
-                    response.setContentType("image/jpeg");
-                    break;
-                case ".png":
-                    response.setContentType("image/png");
-                    break;
-                case ".apng":
-                    response.setContentType("image/apng");
-                    break;
-                case ".gif":
-                    response.setContentType("image/gif");
-                    break;
-                case ".bmp":
-                    response.setContentType("image/bmp");
-                    break;
-                case ".svg":
-                    response.setContentType("image/svg+xml");
-                    break;
-                case ".tif":
-                    response.setContentType("image/tiff");
-                    break;
-                case ".tiff":
-                    response.setContentType("image/tiff");
-                    break;
-                case ".js":
-                    response.setContentType("application/javascript");
-                    break;
-                case ".css":
-                    response.setContentType("text/css");
-                    break;
-                case ".json":
+
                     response.setContentType("application/json");
-                    break;
-                case ".pdf":
-                    response.setContentType("application/pdf");
-                    break;
-                case ".htm":
-                case ".html":
-                    response.setContentType("text/html");
-                    break;
 
-                default:
-                    response.setContentType("text/plain");
-            }
-            this.fileReader(request.fileRequested);
-
-        }
-        else {
-            pl.run(response,request);
-        }
-
-        if(response.getContentLenght()<=0){
-            response.setResponseCode("404 Not Found");
-            response.setContentType("text/html");
-            fileReader(FILE_NOT_FOUND);
-        }
     }
     private void Getprocess() throws IOException {
 

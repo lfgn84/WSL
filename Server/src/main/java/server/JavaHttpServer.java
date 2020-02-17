@@ -42,6 +42,21 @@ public class JavaHttpServer implements Runnable{
             e.printStackTrace();
         }
 
+        /*
+        ProcessBuilder pb = new ProcessBuilder();
+
+        pb.command(prop.getProperty("WSL.mongopath")+"mongod");
+
+        Process p=null;
+
+        try {
+            p = pb.start();
+            System.out.println(p.isAlive());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+         */
         WEB_ROOT=new File((String) prop.get("WSL.StaticFilesRoot"));
         PORT = Integer.parseInt( prop.get("WSL.port").toString());
         try {
@@ -60,13 +75,19 @@ public class JavaHttpServer implements Runnable{
                 threadManager.submit(myServer);
             }
 
+
+
+
+
         } catch (IOException e) {
             System.err.println("Server Connection error : " + e.getMessage());
         }
+
     }
 
     @Override
     public void run() {
+
         // we manage our particular client connection
         BufferedReader in = null;
         PrintWriter out = null;
