@@ -43,7 +43,7 @@ public class Controller {
         else if(request.getMethod().equals("POST")){
             Postprocess();
 //            response.setResponseCode("200 ok");
-//            response.setContentType("application/json");
+            response.setContentType("application/json");
             // Getprocess();
         }
     }
@@ -124,7 +124,7 @@ public class Controller {
 
         if(response.getContentLenght()<=0){
             response.setResponseCode("404 Not Found");
-            response.setContentType("text/html");
+            response.setContentType("text/hml");
             fileReader(FILE_NOT_FOUND);
         }
     }
