@@ -8,7 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/Plugin/Plugin.iml" filepath="$PROJECT_DIR$/Plugin/Plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/SPI/SPI.iml" filepath="$PROJECT_DIR$/SPI/SPI.iml" />
       <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/WSL.iml" filepath="$PROJECT_DIR$/WSL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/WSL.iml" filepath="$PROJECT_DIR$/.idea/WSL.iml" />
     </modules>
   </component>
 </project>

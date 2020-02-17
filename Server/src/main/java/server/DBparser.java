@@ -22,16 +22,16 @@ public class DBparser {
 
     public DBparser (String toParse, Properties prop, Response response) throws IOException {
         ProcessBuilder pb = new ProcessBuilder();
-        ProcessBuilder pb1 = new ProcessBuilder();
+        //ProcessBuilder pb1 = new ProcessBuilder();
         pb.command(prop.getProperty("WSL.mongopath")+"mongod");
-        pb1.command(prop.getProperty("WSL.mongopath")+"mongo");
+    //    pb1.command(prop.getProperty("WSL.mongopath")+"mongo");
         Process p;
-        Process m;
+       // Process m;
 
         p = pb.start();
-        m = pb1.start();
+      //  m = pb1.start();
         System.out.println(p.isAlive());
-        System.out.println(m.isAlive());
+     //   System.out.println(m.isAlive());
 //            p.destroyForcibly();
 //            m.destroyForcibly();
 
@@ -71,8 +71,8 @@ public class DBparser {
         System.out.println("ALL DOCUMENTS:\n");
         coll.find().forEach(printBlock); // Printing all block of documents in  our collection using "find()"  mongodb command.
         System.out.println("");
-
+       mongoClient.close();
         p.destroyForcibly();
-        m.destroyForcibly();
+       // m.destroyForcibly();
     }
 }
