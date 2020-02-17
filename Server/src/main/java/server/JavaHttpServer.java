@@ -154,16 +154,6 @@ public class JavaHttpServer implements Runnable{
             System.err.println("Error closing stream : " + e.getMessage());
         }
     }
-    private String getContentType(String fileRequested) {
-        if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
-            return "text/html";
-        if (fileRequested.endsWith(".pdf"))
-            return "application/pdf";
-        if(fileRequested.endsWith(".css"))
-            return "text/css";
-        else
-            return "text/plain";
-    }
 
     private void sendToClient(PrintWriter out, OutputStream dataOut,Response response,Request request) throws IOException {
 

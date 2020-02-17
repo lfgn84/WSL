@@ -7,13 +7,9 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.*;
 import org.bson.Document;
 import static com.mongodb.client.model.Filters.*;
-import static com.mongodb.client.model.Projections.*;
-
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -47,7 +43,7 @@ public class DBparser {
             }
         };
         coll.find(eq(field, value)).forEach(printBlock);
-        String s=null;
+        String s="";
         for (int i = 0; i < answerlist.size() ; i++) {
             s=s+answerlist.get(i);
         }
@@ -56,20 +52,7 @@ public class DBparser {
     }
 
     public void DBputter (String toParse, long counter, Properties prop, Response response) throws IOException {
-     /*   ProcessBuilder pb = new ProcessBuilder();
-        ProcessBuilder pb1 = new ProcessBuilder();
-        pb.command(prop.getProperty("WSL.mongopath")+"mongod");
-        pb1.command(prop.getProperty("WSL.mongopath")+"mongo");
-        Process p;
-        Process m;
-        p = pb.start();
-        m = pb1.start();
-        System.out.println(p.isAlive());
-        System.out.println(m.isAlive());
-//            p.destroyForcibly();
-//            m.destroyForcibly();
-*/
-        //List<Document> documents = new ArrayList<Document>(); // Creating a Document ArrayList named "documents" where we will save our documents.
+
         String y = toParse.substring(toParse.lastIndexOf(toParse));
         String z = (y.replace("&"," ").replace("%40","@"));
         String [] splitBySpace = z.split(" ");
@@ -95,9 +78,6 @@ public class DBparser {
                 .append("e-mail", email)
                 .append("comment",comment);
 
-        // Adding our created documents to our "documents" ArrayList.
-
-
 
         coll.insertOne(doc1); // Inserting our documents on our ArrayList to our created collection of documents ("restaurants") : 'coll', using the "insertMany()" mongodb command.
         System.out.println("");
@@ -107,10 +87,7 @@ public class DBparser {
         coll.find(eq("name", "Luis")).forEach(printBlock);
         System.out.println("");
         mongoClient.close();
-/*
-        p.destroyForcibly();
-        m.destroyForcibly();
-    */
+
     }
 
 }

@@ -2,10 +2,7 @@ package server;
 
 import Spi.Request;
 import Spi.Response;
-import com.mongodb.util.JSON;
 import se.iths.PluginSearcher;
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,6 +21,7 @@ public class Controller {
     private DBparser dBparser;
     private Properties prop;
     private long counter;
+
     public Controller(Request request, Response response,Properties prop)  {
         this.request = request;
         this.response = response;
@@ -45,21 +43,15 @@ public class Controller {
         }
         else if(request.getMethod().equals("POST")){
             Postprocess();
-            // Getprocess();
         }
     }
     private void Postprocess() throws IOException{
-        //  counter++;
-        // int place=0;
 
         if (request.fileRequested.contains("?")&& request.fileRequested.indexOf("?")<request.fileRequested.length()-1){
             String s=request.fileRequested.substring(request.fileRequested.indexOf("?")+1,request.fileRequested.length());
             dBparser.DBputter(s,counter,prop,response);
-
-
         }else {
             dBparser.DBputter(request.headers.get(request.headers.size()-1), counter, prop, response);
-
         }
         response.setResponseCode("200 ok");
         response.setContentType("application/json");
@@ -67,22 +59,11 @@ public class Controller {
     private void Getprocess() throws IOException {
         if(request.getContentType().equals("application/json")) {
            dBparser.DBgetter(request);
-         /*   if (request.fileRequested.contains("?") && request.fileRequested.indexOf("?") < request.fileRequested.length() - 1) {
-                String s = request.fileRequested.substring(request.fileRequested.indexOf("?") + 1, request.fileRequested.length());
-
-                String j = (String) JSON.parse(s);
-                response.setBody(j);
-            }*/
-                response.setContentType("application/json");
-
-
-        }
-
-       else if(request.fileRequested.equals("/")){
+            response.setResponseCode("200 ok");
+            response.setContentType("application/json");
+        }else if(request.fileRequested.equals("/")){
             request.fileRequested="/"+DEFAULT_FILE;
-        }
-
-        else if(Files.exists(Paths.get(WEB_ROOT + request.fileRequested))) {
+        }else if(Files.exists(Paths.get(WEB_ROOT + request.fileRequested))) {
             response.setResponseCode("200 ok");
             String s = request.fileRequested.toLowerCase();
             int start=s.indexOf(".");
@@ -142,11 +123,7 @@ public class Controller {
                     response.setContentType("text/plain");
             }
             this.fileReader(request.fileRequested);
-
-        }
-        else {
-            pl.run(response,request);
-        }
+        }else {pl.run(response,request);}
 
         if(response.getContentLenght()<=0){
             response.setResponseCode("404 Not Found");
@@ -158,7 +135,6 @@ public class Controller {
         File file = new File(WEB_ROOT, fileRequested);
         FileInputStream fileIn = null;
         byte[] fileData = new byte[(int) file.length()];
-
         try {
             fileIn = new FileInputStream(file);
             fileIn.read(fileData);
