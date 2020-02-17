@@ -155,6 +155,8 @@ public class JavaHttpServer implements Runnable{
         }
     }
     private String getContentType(String fileRequested) {
+
+
         if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
             return "text/html";
         if (fileRequested.endsWith(".pdf"))
