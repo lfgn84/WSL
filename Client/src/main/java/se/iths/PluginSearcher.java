@@ -23,8 +23,8 @@ public class PluginSearcher {
     }
 
     public static void main(String[] args) {
-   //     PluginSearcher pluginSearcher = new PluginSearcher(args);
-  //      pluginSearcher.run();
+        //     PluginSearcher pluginSearcher = new PluginSearcher(args);
+        //      pluginSearcher.run();
     }
     public void setFilerquest(String filerquest){
         this.filerquest=filerquest;
@@ -67,29 +67,29 @@ public class PluginSearcher {
 
         URLClassLoader ucl = createClassLoader(args);
 
-            ServiceLoader<Page> getload =
-                    ServiceLoader.load(Page.class, ucl);
+        ServiceLoader<Page> getload =
+                ServiceLoader.load(Page.class, ucl);
 
-                Optional<Page> page = getload
-                        .stream()
-                        .filter(p -> p.type().isAnnotationPresent(Adress.class))
-                        .filter(p -> p.type().getAnnotation(Adress.class).value().equals(request.fileRequested))
-                        .map(ServiceLoader.Provider::get).findFirst();
-                setMETHOD(request.getMethod().toUpperCase());
-                page.ifPresent(
-                        pages -> {
-                            Method[] methods = pages.getClass().getDeclaredMethods();
-                            for (Method m: methods) {
-                                if (m.isAnnotationPresent(METHOD)){
-                                    try {
-                                        m.invoke(pages,request,response);
-                                    } catch (IllegalAccessException | InvocationTargetException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
+        Optional<Page> page = getload
+                .stream()
+                .filter(p -> p.type().isAnnotationPresent(Adress.class))
+                .filter(p -> p.type().getAnnotation(Adress.class).value().equals(request.fileRequested))
+                .map(ServiceLoader.Provider::get).findFirst();
+        setMETHOD(request.getMethod().toUpperCase());
+        page.ifPresent(
+                pages -> {
+                    Method[] methods = pages.getClass().getDeclaredMethods();
+                    for (Method m: methods) {
+                        if (m.isAnnotationPresent(METHOD)){
+                            try {
+                                m.invoke(pages,request,response);
+                            } catch (IllegalAccessException | InvocationTargetException e) {
+                                e.printStackTrace();
                             }
                         }
-                );
+                    }
+                }
+        );
 
 
 

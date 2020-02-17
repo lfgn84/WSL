@@ -20,11 +20,13 @@ public class Controller {
     private String DEFAULT_FILE ;
     private String FILE_NOT_FOUND ;
     private DBparser dBparser;
+    private Properties prop;
     private long counter;
     public Controller(Request request, Response response,Properties prop)  {
         this.request = request;
         this.response = response;
         this.counter=0;
+        this.prop=prop;
         WEB_ROOT = new File(prop.getProperty("WSL.StaticFilesRoot"));
         pl =new PluginSearcher(prop.getProperty("WSL.Pluginroot"));
         FILE_NOT_FOUND=prop.getProperty("WSL.FILE_NOT_FOUND");
@@ -38,15 +40,32 @@ public class Controller {
             response.setContentType("text/html");
             response.setResponseCode("200 ok");
         }
+        else if(request.getMethod().equals("POST")){
+            Postprocess();
+           // Getprocess();
+        }
     }
+    private void Postprocess() throws IOException{
+        counter++;
+        int place=0;
 
+        if (request.fileRequested.contains("?")&& request.fileRequested.indexOf("?")<request.fileRequested.length()-1){
+           String s=request.fileRequested.substring(request.fileRequested.indexOf("?")+1,request.fileRequested.length());
+            dBparser = new DBparser(s,counter,prop,response);
+
+        }else {
+            dBparser = new DBparser(request.headers.get(request.headers.size()-1), counter, prop, response);
+
+        }
+        response.setResponseCode("200 ok");
+        response.setContentType("application/json");
+    }
     private void Getprocess() throws IOException {
 
 
-        /*
-        counter++;
-        dbparser = new DBparser(x,counter);
-         */
+
+
+
         if(request.fileRequested.equals("/")){
             request.fileRequested="/"+DEFAULT_FILE;
         }

@@ -44,10 +44,13 @@ public class JavaHttpServer implements Runnable{
 
         WEB_ROOT=new File((String) prop.get("WSL.StaticFilesRoot"));
         PORT = Integer.parseInt( prop.get("WSL.port").toString());
+
+
         try {
             ServerSocket serverConnect = new ServerSocket(PORT);
             System.out.println("Server started.\nListening for connections on port : " + PORT + " ...\n");
-
+            MongoProcess mp =new MongoProcess(prop);
+            threadManager.submit(mp);
             // we listen until user halts server execution
             while (true) {
                 JavaHttpServer myServer = new JavaHttpServer(serverConnect.accept());
@@ -67,7 +70,7 @@ public class JavaHttpServer implements Runnable{
 
     @Override
     public void run() {
-         // we manage our particular client connection
+        // we manage our particular client connection
         BufferedReader in = null;
         PrintWriter out = null;
         BufferedOutputStream dataOut = null;
@@ -93,14 +96,14 @@ public class JavaHttpServer implements Runnable{
 
                 readInStream(in, request);
 
-                 request.parseHeader();
+                request.parseHeader();
 
-               controller.processHandler();
+                controller.processHandler();
                 sendToClient(out,dataOut,response,request);
             } catch (Exception e) {
                 close(in,out,dataOut);
 
-              //  e.printStackTrace();
+                //  e.printStackTrace();
 
             }
         }
@@ -137,42 +140,42 @@ public class JavaHttpServer implements Runnable{
         }
     }
     private String getContentType(String fileRequested) {
-            if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
-                return "text/html";
-            if (fileRequested.endsWith(".pdf"))
-                return "application/pdf";
-        if(fileRequested.endsWith(".js"))
-            return "text/x-js";
-            if(fileRequested.endsWith(".css"))
-                return "text/css";
-            else
-                return "text/plain";
+
+
+        if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
+            return "text/html";
+        if (fileRequested.endsWith(".pdf"))
+            return "application/pdf";
+        if(fileRequested.endsWith(".css"))
+            return "text/css";
+        else
+            return "text/plain";
+    }
+
+    private void sendToClient(PrintWriter out, OutputStream dataOut,Response response,Request request) throws IOException {
+
+        // send HTTP Headers
+        out.print("HTTP/1.1 "+response.getResponseCode()+"\r\n");
+        out.print("Server: Java HTTP Server from Golare har inga Polare\r\n");
+        out.print("Date: " + new Date() + "\r\n");
+        out.print("Content-type: " + response.getContentType() + "\r\n");
+        if (response.getContentLenght() > 0) {
+            out.print("Content-length: " + response.getContentLenght() + "\r\n");
+            out.print("\r\n"); // blank line between headers and content, very important !
+            out.flush(); // flush character output stream buffer
+
+            dataOut.write(response.getBody(), 0, (int) response.getContentLenght());
+            dataOut.flush();
+        }else {
+            out.print("Content-length: " + response.getContentLenght() + "\r\n");
+            out.print("\r\n"); // blank line between headers and content, very important !
+            out.flush(); // flush character output stream buffer
+        }
+        if (verbose) {
+            System.out.println("File " + request.fileRequested + " of type " + response.getContentType() + " returned");
         }
 
-        private void sendToClient(PrintWriter out, OutputStream dataOut,Response response,Request request) throws IOException {
 
-                // send HTTP Headers
-                out.print("HTTP/1.1 "+response.getResponseCode()+"\r\n");
-                out.print("Server: Java HTTP Server from Golare har inga Polare\r\n");
-                out.print("Date: " + new Date() + "\r\n");
-                out.print("Content-type: " + response.getContentType() + "\r\n");
-                if (response.getContentLenght() > 0) {
-                    out.print("Content-length: " + response.getContentLenght() + "\r\n");
-                    out.print("\r\n"); // blank line between headers and content, very important !
-                    out.flush(); // flush character output stream buffer
-
-                    dataOut.write(response.getBody(), 0, (int) response.getContentLenght());
-                    dataOut.flush();
-                }else {
-                    out.print("Content-length: " + response.getContentLenght() + "\r\n");
-                    out.print("\r\n"); // blank line between headers and content, very important !
-                    out.flush(); // flush character output stream buffer
-                }
-                if (verbose) {
-                    System.out.println("File " + request.fileRequested + " of type " + response.getContentType() + " returned");
-                }
-
-
-        }
+    }
 
 }
