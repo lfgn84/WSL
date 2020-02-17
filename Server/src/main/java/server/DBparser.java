@@ -32,10 +32,10 @@ public class DBparser {
         }
         value = request.headers.get(request.headers.size()-1).substring(request.headers.get(request.headers.size()-1).indexOf(":\"")+2,request.headers.get(request.headers.size()-1).lastIndexOf("}")-1);
         List<String> answerlist = new ArrayList<>();
-        MongoClient mongoClient = MongoClients.create();    // Creating a mongoClient to connect with Mongodb
-        MongoDatabase database = mongoClient.getDatabase("WSL"); // Creating our new database through our mongoClient (database : "lab3")
-        MongoCollection<Document> coll = database.getCollection("Greetings"); // Creating our new collection in our new database (collection : "restaurants")
-        Block<Document> printBlock = new Block<Document>() { // Creating a "printBlock" method that will identify and print out our documents on blocks in Json format.
+        MongoClient mongoClient = MongoClients.create();
+        MongoDatabase database = mongoClient.getDatabase("WSL");
+        MongoCollection<Document> coll = database.getCollection("Greetings");
+        Block<Document> printBlock = new Block<Document>() {
             @Override
             public void apply(final Document document) {
                 answerlist.add(document.toJson());
@@ -61,10 +61,10 @@ public class DBparser {
         String commentPlus = splitBySpace[2].replace("comments=","").replace("+"," ");
         String comment = commentPlus.replace("+"," ");
 
-        MongoClient mongoClient = MongoClients.create();    // Creating a mongoClient to connect with Mongodb
-        MongoDatabase database = mongoClient.getDatabase("WSL"); // Creating our new database through our mongoClient (database : "lab3")
-        MongoCollection<Document> coll = database.getCollection("Greetings"); // Creating our new collection in our new database (collection : "restaurants")
-        Block<Document> printBlock = new Block<Document>() { // Creating a "printBlock" method that will identify and print out our documents on blocks in Json format.
+        MongoClient mongoClient = MongoClients.create();
+        MongoDatabase database = mongoClient.getDatabase("WSL");
+        MongoCollection<Document> coll = database.getCollection("Greetings");
+        Block<Document> printBlock = new Block<Document>() {
             @Override
             public void apply(final Document document) {
                 response.setBody(document.toJson());
@@ -73,18 +73,16 @@ public class DBparser {
         };
 
 
-        Document doc1 = new Document   //Creating our new documents and appending their fields and values for our collection("restaurants").
-                ("name", name)                   //With other words, creating our database of "restaurants" and their details on our collection.
+        Document doc1 = new Document
+                ("name", name)
                 .append("e-mail", email)
                 .append("comment",comment);
 
 
-        coll.insertOne(doc1); // Inserting our documents on our ArrayList to our created collection of documents ("restaurants") : 'coll', using the "insertMany()" mongodb command.
+        coll.insertOne(doc1);
         System.out.println("");
         System.out.println("ALL DOCUMENTS:\n");
-        coll.find().forEach(printBlock); // Printing all block of documents in  our collection using "find()"  mongodb command.
-        System.out.println("-----------------");
-        coll.find(eq("name", "Luis")).forEach(printBlock);
+        coll.find().forEach(printBlock);
         System.out.println("");
         mongoClient.close();
 

@@ -12,21 +12,18 @@ import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-// The tutorial can be found just here on the SSaurel's Blog :
-// https://www.ssaurel.com/blog/create-a-simple-http-web-server-in-java
-// Each Client Connection will be managed in a dedicated Thread
+
 public class JavaHttpServer implements Runnable{
     private static Properties prop;
     static  File WEB_ROOT = null;
     static ExecutorService threadManager = Executors.newCachedThreadPool();
 
-    // port to listen connection
+
     static  int PORT ;
 
-    // verbose mode
+
     static final boolean verbose = true;
 
-    // Client Connection via Socket Class
     private Socket connect;
 
     public JavaHttpServer(Socket c) {
@@ -51,7 +48,6 @@ public class JavaHttpServer implements Runnable{
             System.out.println("Server started.\nListening for connections on port : " + PORT + " ...\n");
             MongoProcess mp =new MongoProcess(prop);
             threadManager.submit(mp);
-            // we listen until user halts server execution
             while (true) {
                 JavaHttpServer myServer = new JavaHttpServer(serverConnect.accept());
 
@@ -59,7 +55,6 @@ public class JavaHttpServer implements Runnable{
                     System.out.println("Connecton opened. (" + new Date() + ")");
                 }
 
-                // create dedicated thread to manage the client connection
                 threadManager.submit(myServer);
             }
 
@@ -70,7 +65,6 @@ public class JavaHttpServer implements Runnable{
 
     @Override
     public void run() {
-        // we manage our particular client connection
         BufferedReader in = null;
         PrintWriter out = null;
         BufferedOutputStream dataOut = null;
@@ -81,17 +75,13 @@ public class JavaHttpServer implements Runnable{
             e.printStackTrace();
         }
         while (!connect.isClosed()) {
-            //try (Socket socket = connect)
             try {
                 Request request = new Request();
                 Response response = new Response();
 
                 Controller controller = new Controller(request,response,prop);
-                // we read characters from the client via input stream on the socket
                 in = new BufferedReader(new InputStreamReader(connect.getInputStream()));
-                // we get character output stream to client (for headers)
                 out = new PrintWriter(connect.getOutputStream());
-                // get binary output stream to client (for requested data)
                 dataOut = new BufferedOutputStream(connect.getOutputStream());
 
                 readInStream(in, request);
@@ -103,11 +93,9 @@ public class JavaHttpServer implements Runnable{
             } catch (Exception e) {
                 close(in,out,dataOut);
 
-                //  e.printStackTrace();
 
             }
         }
-      //  close(in,out,dataOut);
     }
     private void readInStream(BufferedReader in,Request request) throws IOException {
         String s;
@@ -149,7 +137,7 @@ public class JavaHttpServer implements Runnable{
             in.close();
             out.close();
             dataOut.close();
-            connect.close(); // we close socket connection
+            connect.close();
         } catch (Exception e) {
             System.err.println("Error closing stream : " + e.getMessage());
         }
@@ -157,22 +145,21 @@ public class JavaHttpServer implements Runnable{
 
     private void sendToClient(PrintWriter out, OutputStream dataOut,Response response,Request request) throws IOException {
 
-        // send HTTP Headers
         out.print("HTTP/1.1 "+response.getResponseCode()+"\r\n");
         out.print("Server: Java HTTP Server from Golare har inga Polare\r\n");
         out.print("Date: " + new Date() + "\r\n");
         out.print("Content-type: " + response.getContentType() + "\r\n");
         if (response.getContentLenght() > 0) {
             out.print("Content-length: " + response.getContentLenght() + "\r\n");
-            out.print("\r\n"); // blank line between headers and content, very important !
-            out.flush(); // flush character output stream buffer
+            out.print("\r\n");
+            out.flush();
 
             dataOut.write(response.getBody(), 0, (int) response.getContentLenght());
             dataOut.flush();
         }else {
             out.print("Content-length: " + response.getContentLenght() + "\r\n");
-            out.print("\r\n"); // blank line between headers and content, very important !
-            out.flush(); // flush character output stream buffer
+            out.print("\r\n");
+            out.flush();
         }
         if (verbose) {
             System.out.println("File " + request.fileRequested + " of type " + response.getContentType() + " returned");
