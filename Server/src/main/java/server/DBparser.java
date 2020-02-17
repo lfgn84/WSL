@@ -1,5 +1,6 @@
 package server;
 
+import Spi.Request;
 import Spi.Response;
 import com.mongodb.Block;
 import com.mongodb.client.MongoClient;
@@ -18,8 +19,43 @@ import java.util.List;
 import java.util.Properties;
 
 public class DBparser {
+    private Response response;
 
-    public DBparser (String toParse, long counter, Properties prop, Response response) throws IOException {
+    public DBparser(Response response){
+        this.response = response;
+    }
+
+    public void DBgetter(Request request) {
+
+        String field;
+        String value;
+        if (request.headers.get(request.headers.size() - 1).contains("name")){
+            field = "name";
+        }else{
+            field="e-mail";
+        }
+        value = request.headers.get(request.headers.size()-1).substring(request.headers.get(request.headers.size()-1).indexOf(":\"")+2,request.headers.get(request.headers.size()-1).lastIndexOf("}")-1);
+        List<String> answerlist = new ArrayList<>();
+        MongoClient mongoClient = MongoClients.create();    // Creating a mongoClient to connect with Mongodb
+        MongoDatabase database = mongoClient.getDatabase("WSL"); // Creating our new database through our mongoClient (database : "lab3")
+        MongoCollection<Document> coll = database.getCollection("Greetings"); // Creating our new collection in our new database (collection : "restaurants")
+        Block<Document> printBlock = new Block<Document>() { // Creating a "printBlock" method that will identify and print out our documents on blocks in Json format.
+            @Override
+            public void apply(final Document document) {
+                answerlist.add(document.toJson());
+                System.out.println(document.toJson());
+            }
+        };
+        coll.find(eq(field, value)).forEach(printBlock);
+        String s=null;
+        for (int i = 0; i < answerlist.size() ; i++) {
+            s=s+answerlist.get(i);
+        }
+        mongoClient.close();
+        response.setBody(s);
+    }
+
+    public void DBputter (String toParse, long counter, Properties prop, Response response) throws IOException {
      /*   ProcessBuilder pb = new ProcessBuilder();
         ProcessBuilder pb1 = new ProcessBuilder();
         pb.command(prop.getProperty("WSL.mongopath")+"mongod");
@@ -33,7 +69,7 @@ public class DBparser {
 //            p.destroyForcibly();
 //            m.destroyForcibly();
 */
-        List<Document> documents = new ArrayList<Document>(); // Creating a Document ArrayList named "documents" where we will save our documents.
+        //List<Document> documents = new ArrayList<Document>(); // Creating a Document ArrayList named "documents" where we will save our documents.
         String y = toParse.substring(toParse.lastIndexOf(toParse));
         String z = (y.replace("&"," ").replace("%40","@"));
         String [] splitBySpace = z.split(" ");
@@ -49,6 +85,7 @@ public class DBparser {
             @Override
             public void apply(final Document document) {
                 response.setBody(document.toJson());
+                System.out.println(document.toJson());
             }
         };
 
@@ -66,6 +103,8 @@ public class DBparser {
         System.out.println("");
         System.out.println("ALL DOCUMENTS:\n");
         coll.find().forEach(printBlock); // Printing all block of documents in  our collection using "find()"  mongodb command.
+        System.out.println("-----------------");
+        coll.find(eq("name", "Luis")).forEach(printBlock);
         System.out.println("");
         mongoClient.close();
 /*

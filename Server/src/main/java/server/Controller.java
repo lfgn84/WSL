@@ -29,6 +29,7 @@ public class Controller {
         this.response = response;
         this.counter=0;
         this.prop=prop;
+        dBparser = new DBparser(this.response);
         WEB_ROOT = new File(prop.getProperty("WSL.StaticFilesRoot"));
         pl =new PluginSearcher(prop.getProperty("WSL.Pluginroot"));
         FILE_NOT_FOUND=prop.getProperty("WSL.FILE_NOT_FOUND");
@@ -53,32 +54,35 @@ public class Controller {
 
         if (request.fileRequested.contains("?")&& request.fileRequested.indexOf("?")<request.fileRequested.length()-1){
             String s=request.fileRequested.substring(request.fileRequested.indexOf("?")+1,request.fileRequested.length());
-            dBparser = new DBparser(s,counter,prop,response);
+            dBparser.DBputter(s,counter,prop,response);
 
 
         }else {
-            dBparser = new DBparser(request.headers.get(request.headers.size()-1), counter, prop, response);
+            dBparser.DBputter(request.headers.get(request.headers.size()-1), counter, prop, response);
 
         }
         response.setResponseCode("200 ok");
         response.setContentType("application/json");
     }
     private void Getprocess() throws IOException {
-        if(request.getContentType().equals("application/json")){
-            if (request.fileRequested.contains("?")&& request.fileRequested.indexOf("?")<request.fileRequested.length()-1){
-            String s=request.fileRequested.substring(request.fileRequested.indexOf("?")+1,request.fileRequested.length());
-            String j = (String) JSON.parse(s);
-            response.setBody(j);
-            response.setContentType("application/json");
-            }
+        if(request.getContentType().equals("application/json")) {
+           dBparser.DBgetter(request);
+         /*   if (request.fileRequested.contains("?") && request.fileRequested.indexOf("?") < request.fileRequested.length() - 1) {
+                String s = request.fileRequested.substring(request.fileRequested.indexOf("?") + 1, request.fileRequested.length());
+
+                String j = (String) JSON.parse(s);
+                response.setBody(j);
+            }*/
+                response.setContentType("application/json");
+
 
         }
 
-        if(request.fileRequested.equals("/")){
+       else if(request.fileRequested.equals("/")){
             request.fileRequested="/"+DEFAULT_FILE;
         }
 
-        if(Files.exists(Paths.get(WEB_ROOT + request.fileRequested))) {
+        else if(Files.exists(Paths.get(WEB_ROOT + request.fileRequested))) {
             response.setResponseCode("200 ok");
             String s = request.fileRequested.toLowerCase();
             int start=s.indexOf(".");
