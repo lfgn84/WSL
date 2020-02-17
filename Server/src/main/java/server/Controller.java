@@ -2,7 +2,9 @@ package server;
 
 import Spi.Request;
 import Spi.Response;
+import com.mongodb.util.JSON;
 import se.iths.PluginSearcher;
+
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,6 +55,7 @@ public class Controller {
             String s=request.fileRequested.substring(request.fileRequested.indexOf("?")+1,request.fileRequested.length());
             dBparser = new DBparser(s,counter,prop,response);
 
+
         }else {
             dBparser = new DBparser(request.headers.get(request.headers.size()-1), counter, prop, response);
 
@@ -61,6 +64,15 @@ public class Controller {
         response.setContentType("application/json");
     }
     private void Getprocess() throws IOException {
+        if(request.getContentType().equals("application/json")){
+            if (request.fileRequested.contains("?")&& request.fileRequested.indexOf("?")<request.fileRequested.length()-1){
+            String s=request.fileRequested.substring(request.fileRequested.indexOf("?")+1,request.fileRequested.length());
+            String j = (String) JSON.parse(s);
+            response.setBody(j);
+            response.setContentType("application/json");
+            }
+
+        }
 
         if(request.fileRequested.equals("/")){
             request.fileRequested="/"+DEFAULT_FILE;
