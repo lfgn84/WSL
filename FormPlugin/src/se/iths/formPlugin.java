@@ -1,5 +1,6 @@
 package se.iths;
 
+import Spi.POST;
 import Spi.Page;
 import Spi.Request;
 import Spi.Response;
@@ -12,7 +13,7 @@ public class formPlugin implements Page  {
     File file = new File(".form.html");
 //    int fileLength = (int) file.length();
 //    String content = getContentType(fileRequested);
-
+    @POST
     public void execute(Request request, Response response){
 
         System.out.println("Post prints !");

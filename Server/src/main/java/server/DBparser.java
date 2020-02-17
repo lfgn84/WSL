@@ -26,14 +26,12 @@ public class DBparser {
         pb1.command(prop.getProperty("WSL.mongopath")+"mongo");
         Process p;
         Process m;
-
         p = pb.start();
         m = pb1.start();
         System.out.println(p.isAlive());
         System.out.println(m.isAlive());
 //            p.destroyForcibly();
 //            m.destroyForcibly();
-
 */
         List<Document> documents = new ArrayList<Document>(); // Creating a Document ArrayList named "documents" where we will save our documents.
         String y = toParse.substring(toParse.lastIndexOf(toParse));
@@ -56,7 +54,7 @@ public class DBparser {
 
 
         Document doc1 = new Document   //Creating our new documents and appending their fields and values for our collection("restaurants").
-                 ("name", name)                   //With other words, creating our database of "restaurants" and their details on our collection.
+                ("name", name)                   //With other words, creating our database of "restaurants" and their details on our collection.
                 .append("e-mail", email)
                 .append("comment",comment);
 
