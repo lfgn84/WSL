@@ -22,7 +22,7 @@ public class MongoProcess implements Runnable {
             //String command = "git describe --abbrev=0 --tags";
             String command =prop.getProperty("WSL.mongopath")+ "mongod --bind_ip 127.0.0.1";
             try {
-                Process p = Runtime.getRuntime().exec(command);
+                Process p = Runtime.getRuntime().git exec(command);
                 BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 String line;
                 String text = command + "\n";
