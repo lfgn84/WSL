@@ -1,34 +1,92 @@
-Line: 2020-02-17T12:25:48.212+0100 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
+Line: 2020-02-17T13:40:37.184+0100 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
 Line: 
-Line: 2020-02-17T12:25:48.791+0100 I  CONTROL  [initandlisten] MongoDB starting : pid=3768 port=27017 dbpath=C:\data\db\ 64-bit host=DESKTOP-LLCEUHN
+Line: 2020-02-17T13:40:38.377+0100 I  CONTROL  [initandlisten] MongoDB starting : pid=18356 port=27017 dbpath=C:\data\db\ 64-bit host=DESKTOP-Q3U52PL
 Line: 
-Line: 2020-02-17T12:25:48.791+0100 I  CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+Line: 2020-02-17T13:40:38.377+0100 I  CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
 Line: 
-Line: 2020-02-17T12:25:48.791+0100 I  CONTROL  [initandlisten] db version v4.2.2
+Line: 2020-02-17T13:40:38.377+0100 I  CONTROL  [initandlisten] db version v4.2.2
 Line: 
-Line: 2020-02-17T12:25:48.791+0100 I  CONTROL  [initandlisten] git version: a0bbbff6ada159e19298d37946ac8dc4b497eadf
+Line: 2020-02-17T13:40:38.377+0100 I  CONTROL  [initandlisten] git version: a0bbbff6ada159e19298d37946ac8dc4b497eadf
 Line: 
-Line: 2020-02-17T12:25:48.791+0100 I  CONTROL  [initandlisten] allocator: tcmalloc
+Line: 2020-02-17T13:40:38.377+0100 I  CONTROL  [initandlisten] allocator: tcmalloc
 Line: 
-Line: 2020-02-17T12:25:48.791+0100 I  CONTROL  [initandlisten] modules: none
+Line: 2020-02-17T13:40:38.377+0100 I  CONTROL  [initandlisten] modules: none
 Line: 
-Line: 2020-02-17T12:25:48.791+0100 I  CONTROL  [initandlisten] build environment:
+Line: 2020-02-17T13:40:38.377+0100 I  CONTROL  [initandlisten] build environment:
 Line: 
-Line: 2020-02-17T12:25:48.791+0100 I  CONTROL  [initandlisten]     distmod: 2012plus
+Line: 2020-02-17T13:40:38.377+0100 I  CONTROL  [initandlisten]     distmod: 2012plus
 Line: 
-Line: 2020-02-17T12:25:48.791+0100 I  CONTROL  [initandlisten]     distarch: x86_64
+Line: 2020-02-17T13:40:38.377+0100 I  CONTROL  [initandlisten]     distarch: x86_64
 Line: 
-Line: 2020-02-17T12:25:48.791+0100 I  CONTROL  [initandlisten]     target_arch: x86_64
+Line: 2020-02-17T13:40:38.377+0100 I  CONTROL  [initandlisten]     target_arch: x86_64
 Line: 
-Line: 2020-02-17T12:25:48.791+0100 I  CONTROL  [initandlisten] options: { net: { bindIp: "127.0.0.1" } }
+Line: 2020-02-17T13:40:38.377+0100 I  CONTROL  [initandlisten] options: { net: { bindIp: "127.0.0.1" } }
 Line: 
-Line: 2020-02-17T12:25:48.796+0100 I  STORAGE  [initandlisten] exception in initAndListen: DBPathInUse: Unable to create/open the lock file: C:\data\db\mongod.lock (Det går inte att komma åt filen eftersom den). Ensure the user executing mongod is the owner of the lock file and has the appropriate permissions. Also make sure that another mongod instance is not already running on the C:\data\db\ directory, terminating
+Line: 2020-02-17T13:40:38.399+0100 W  STORAGE  [initandlisten] Detected unclean shutdown - C:\data\db\mongod.lock is not empty.
 Line: 
-Line: 2020-02-17T12:25:48.796+0100 I  NETWORK  [initandlisten] shutdown: going to close listening sockets...
+Line: 2020-02-17T13:40:38.400+0100 I  STORAGE  [initandlisten] Detected data files in C:\data\db\ created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
 Line: 
-Line: 2020-02-17T12:25:48.796+0100 I  -        [initandlisten] Stopping further Flow Control ticket acquisitions.
+Line: 2020-02-17T13:40:38.401+0100 W  STORAGE  [initandlisten] Recovering data from the last clean checkpoint.
 Line: 
-Line: 2020-02-17T12:25:48.797+0100 I  CONTROL  [initandlisten] now exiting
+Line: 2020-02-17T13:40:38.402+0100 I  STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3521M,cache_overflow=(file_max=0M),session_max=33000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000,close_scan_interval=10,close_handle_minimum=250),statistics_log=(wait=0),verbose=[recovery_progress,checkpoint_progress],
 Line: 
-Line: 2020-02-17T12:25:48.797+0100 I  CONTROL  [initandlisten] shutting down with code:100
+Line: 2020-02-17T13:40:38.462+0100 I  STORAGE  [initandlisten] WiredTiger message [1581943238:461945][18356:140728070004304], txn-recover: Recovering log 19 through 20
+Line: 
+Line: 2020-02-17T13:40:38.676+0100 I  STORAGE  [initandlisten] WiredTiger message [1581943238:675828][18356:140728070004304], txn-recover: Recovering log 20 through 20
+Line: 
+Line: 2020-02-17T13:40:39.011+0100 I  STORAGE  [initandlisten] WiredTiger message [1581943239:10633][18356:140728070004304], txn-recover: Main recovery loop: starting at 19/6400 to 20/256
+Line: 
+Line: 2020-02-17T13:40:39.016+0100 I  STORAGE  [initandlisten] WiredTiger message [1581943239:16627][18356:140728070004304], txn-recover: Recovering log 19 through 20
+Line: 
+Line: 2020-02-17T13:40:39.278+0100 I  STORAGE  [initandlisten] WiredTiger message [1581943239:277984][18356:140728070004304], file:sizeStorer.wt, txn-recover: Recovering log 20 through 20
+Line: 
+Line: 2020-02-17T13:40:39.540+0100 I  STORAGE  [initandlisten] WiredTiger message [1581943239:539838][18356:140728070004304], file:sizeStorer.wt, txn-recover: Set global recovery timestamp: (0,0)
+Line: 
+Line: 2020-02-17T13:40:39.701+0100 I  RECOVERY [initandlisten] WiredTiger recoveryTimestamp. Ts: Timestamp(0, 0)
+Line: 
+Line: 2020-02-17T13:40:39.724+0100 I  STORAGE  [initandlisten] Timestamp monitor starting
+Line: 
+Line: 2020-02-17T13:40:39.732+0100 I  CONTROL  [initandlisten] 
+Line: 
+Line: 2020-02-17T13:40:39.732+0100 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+Line: 
+Line: 2020-02-17T13:40:39.732+0100 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+Line: 
+Line: 2020-02-17T13:40:39.733+0100 I  CONTROL  [initandlisten] 
+Line: 
+Line: 2020-02-17T13:40:39.747+0100 I  SHARDING [initandlisten] Marking collection local.system.replset as collection version: <unsharded>
+Line: 
+Line: 2020-02-17T13:40:39.751+0100 I  STORAGE  [initandlisten] Flow Control is enabled on this deployment.
+Line: 
+Line: 2020-02-17T13:40:39.752+0100 I  SHARDING [initandlisten] Marking collection admin.system.roles as collection version: <unsharded>
+Line: 
+Line: 2020-02-17T13:40:39.752+0100 I  SHARDING [initandlisten] Marking collection admin.system.version as collection version: <unsharded>
+Line: 
+Line: 2020-02-17T13:40:39.757+0100 I  SHARDING [initandlisten] Marking collection local.startup_log as collection version: <unsharded>
+Line: 
+Line: 2020-02-17T13:40:40.564+0100 W  FTDC     [initandlisten] Failed to initialize Performance Counters for FTDC: WindowsPdhError: PdhExpandCounterPathW failed with 'The specified counter could not be found.' for counter '\Processor(_Total)\% Idle Time'
+Line: 
+Line: 2020-02-17T13:40:40.564+0100 I  FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'C:/data/db/diagnostic.data'
+Line: 
+Line: 2020-02-17T13:40:40.566+0100 I  SHARDING [LogicalSessionCacheRefresh] Marking collection config.system.sessions as collection version: <unsharded>
+Line: 
+Line: 2020-02-17T13:40:40.567+0100 I  NETWORK  [initandlisten] Listening on 127.0.0.1
+Line: 
+Line: 2020-02-17T13:40:40.567+0100 I  NETWORK  [initandlisten] waiting for connections on port 27017
+Line: 
+Line: 2020-02-17T13:40:40.567+0100 I  SHARDING [LogicalSessionCacheReap] Marking collection config.transactions as collection version: <unsharded>
+Line: 
+Line: 2020-02-17T13:40:41.007+0100 I  FTDC     [ftdc] Unclean full-time diagnostic data capture shutdown detected, found interim file, some metrics may have been lost. OK
+Line: 
+Line: 2020-02-17T13:40:41.105+0100 I  SHARDING [ftdc] Marking collection local.oplog.rs as collection version: <unsharded>
+Line: 
+Line: 2020-02-17T13:40:54.390+0100 I  NETWORK  [listener] connection accepted from 127.0.0.1:53961 #1 (1 connection now open)
+Line: 
+Line: 2020-02-17T13:40:54.411+0100 I  NETWORK  [conn1] received client metadata from 127.0.0.1:53961 conn1: { driver: { name: "mongo-java-driver|sync", version: "3.12.1" }, os: { type: "Windows", name: "Windows 10", architecture: "amd64", version: "10.0" }, platform: "Java/AdoptOpenJDK/11.0.4+11" }
+Line: 
+Line: 2020-02-17T13:40:54.479+0100 I  NETWORK  [listener] connection accepted from 127.0.0.1:53962 #2 (2 connections now open)
+Line: 
+Line: 2020-02-17T13:40:54.480+0100 I  NETWORK  [conn2] received client metadata from 127.0.0.1:53962 conn2: { driver: { name: "mongo-java-driver|sync", version: "3.12.1" }, os: { type: "Windows", name: "Windows 10", architecture: "amd64", version: "10.0" }, platform: "Java/AdoptOpenJDK/11.0.4+11" }
+Line: 
+Line: 2020-02-17T13:40:54.508+0100 I  SHARDING [conn2] Marking collection WSL.Greetings as collection version: <unsharded>
 Line: 

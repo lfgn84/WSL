@@ -63,9 +63,6 @@ public class Controller {
     private void Getprocess() throws IOException {
 
 
-
-
-
         if(request.fileRequested.equals("/")){
             request.fileRequested="/"+DEFAULT_FILE;
         }
