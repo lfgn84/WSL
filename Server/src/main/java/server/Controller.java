@@ -29,11 +29,7 @@ public class Controller {
         this.response = response;
         this.counter=0;
         this.prop=prop;
-        try {
-            dBparser = new DBparser(this.response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        dBparser = new DBparser(this.response);
         WEB_ROOT = new File(prop.getProperty("WSL.StaticFilesRoot"));
         pl =new PluginSearcher(prop.getProperty("WSL.Pluginroot"));
         FILE_NOT_FOUND=prop.getProperty("WSL.FILE_NOT_FOUND");
