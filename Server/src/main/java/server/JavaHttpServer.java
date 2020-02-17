@@ -107,7 +107,7 @@ public class JavaHttpServer implements Runnable{
 
             }
         }
-        close(in,out,dataOut);
+      //  close(in,out,dataOut);
     }
     private void readInStream(BufferedReader in,Request request) throws IOException {
         String s;
@@ -123,10 +123,25 @@ public class JavaHttpServer implements Runnable{
                     }
                     request.headers.add(String.copyValueOf(st));
                     break;
+                }else if (request.getContentType().equals("application/json")) {
+                    char[] st = new char[request.getContentLength()];
+                    for (int i = 0; i < request.getContentLength(); i++) {
+                        st[i] = (char) in.read();
+                    }
+                    String s1 =String.copyValueOf(st);
+                    s1=s1.replace("\t","");
+                    s1=s1.replace("\n","");
+                    request.headers.add(s1);
+                    break;
                 }
             }
         }
-
+ /*       try {
+            connect.setSoTimeout(10000);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+*/
     }
 
     private void close(BufferedReader in,PrintWriter out,BufferedOutputStream dataOut){
