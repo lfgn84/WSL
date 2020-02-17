@@ -7,7 +7,6 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.*;
-import jdk.swing.interop.SwingInterOpUtils;
 import org.bson.Document;
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Projections.*;
@@ -20,22 +19,20 @@ import java.util.Properties;
 
 public class DBparser {
 
-    public DBparser (String toParse, Properties prop, Response response) throws IOException {
-        ProcessBuilder pb = new ProcessBuilder();
-        //ProcessBuilder pb1 = new ProcessBuilder();
+    public DBparser (String toParse, long counter, Properties prop, Response response) throws IOException {
+     /*   ProcessBuilder pb = new ProcessBuilder();
+        ProcessBuilder pb1 = new ProcessBuilder();
         pb.command(prop.getProperty("WSL.mongopath")+"mongod");
-    //    pb1.command(prop.getProperty("WSL.mongopath")+"mongo");
+        pb1.command(prop.getProperty("WSL.mongopath")+"mongo");
         Process p;
-       // Process m;
-
+        Process m;
         p = pb.start();
-      //  m = pb1.start();
+        m = pb1.start();
         System.out.println(p.isAlive());
-     //   System.out.println(m.isAlive());
+        System.out.println(m.isAlive());
 //            p.destroyForcibly();
 //            m.destroyForcibly();
-
-
+*/
         List<Document> documents = new ArrayList<Document>(); // Creating a Document ArrayList named "documents" where we will save our documents.
         String y = toParse.substring(toParse.lastIndexOf(toParse));
         String z = (y.replace("&"," ").replace("%40","@"));
@@ -52,13 +49,12 @@ public class DBparser {
             @Override
             public void apply(final Document document) {
                 response.setBody(document.toJson());
-                System.out.println(document.toJson());
             }
         };
 
 
         Document doc1 = new Document   //Creating our new documents and appending their fields and values for our collection("restaurants").
-                 ("name", name)                   //With other words, creating our database of "restaurants" and their details on our collection.
+                ("name", name)                   //With other words, creating our database of "restaurants" and their details on our collection.
                 .append("e-mail", email)
                 .append("comment",comment);
 
@@ -71,8 +67,10 @@ public class DBparser {
         System.out.println("ALL DOCUMENTS:\n");
         coll.find().forEach(printBlock); // Printing all block of documents in  our collection using "find()"  mongodb command.
         System.out.println("");
-       mongoClient.close();
+/*
         p.destroyForcibly();
-       // m.destroyForcibly();
+        m.destroyForcibly();
+    */
     }
+
 }
