@@ -20,7 +20,7 @@ import java.util.Properties;
 public class DBparser {
 
     public DBparser (String toParse, long counter, Properties prop, Response response) throws IOException {
-        ProcessBuilder pb = new ProcessBuilder();
+     /*   ProcessBuilder pb = new ProcessBuilder();
         ProcessBuilder pb1 = new ProcessBuilder();
         pb.command(prop.getProperty("WSL.mongopath")+"mongod");
         pb1.command(prop.getProperty("WSL.mongopath")+"mongo");
@@ -34,7 +34,7 @@ public class DBparser {
 //            p.destroyForcibly();
 //            m.destroyForcibly();
 
-
+*/
         List<Document> documents = new ArrayList<Document>(); // Creating a Document ArrayList named "documents" where we will save our documents.
         String y = toParse.substring(toParse.lastIndexOf(toParse));
         String z = (y.replace("&"," ").replace("%40","@"));
@@ -69,8 +69,10 @@ public class DBparser {
         System.out.println("ALL DOCUMENTS:\n");
         coll.find().forEach(printBlock); // Printing all block of documents in  our collection using "find()"  mongodb command.
         System.out.println("");
-
+/*
         p.destroyForcibly();
         m.destroyForcibly();
+    */
     }
+
 }

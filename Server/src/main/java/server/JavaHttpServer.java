@@ -44,10 +44,13 @@ public class JavaHttpServer implements Runnable{
 
         WEB_ROOT=new File((String) prop.get("WSL.StaticFilesRoot"));
         PORT = Integer.parseInt( prop.get("WSL.port").toString());
+
+
         try {
             ServerSocket serverConnect = new ServerSocket(PORT);
             System.out.println("Server started.\nListening for connections on port : " + PORT + " ...\n");
-
+            MongoProcess mp =new MongoProcess(prop);
+            threadManager.submit(mp);
             // we listen until user halts server execution
             while (true) {
                 JavaHttpServer myServer = new JavaHttpServer(serverConnect.accept());

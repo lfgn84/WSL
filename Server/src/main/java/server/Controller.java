@@ -47,7 +47,18 @@ public class Controller {
     }
     private void Postprocess() throws IOException{
         counter++;
-        dBparser = new DBparser(request.headers.get(13),counter,prop,response);
+        int place=0;
+
+        if (request.fileRequested.contains("?")&& request.fileRequested.indexOf("?")<request.fileRequested.length()-1){
+           String s=request.fileRequested.substring(request.fileRequested.indexOf("?")+1,request.fileRequested.length());
+            dBparser = new DBparser(s,counter,prop,response);
+
+        }else {
+            dBparser = new DBparser(request.headers.get(request.headers.size()-1), counter, prop, response);
+
+        }
+        response.setResponseCode("200 ok");
+        response.setContentType("application/json");
     }
     private void Getprocess() throws IOException {
 
