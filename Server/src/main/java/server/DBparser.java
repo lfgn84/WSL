@@ -69,6 +69,7 @@ public class DBparser {
         System.out.println("ALL DOCUMENTS:\n");
         coll.find().forEach(printBlock); // Printing all block of documents in  our collection using "find()"  mongodb command.
         System.out.println("");
+        mongoClient.close();
 /*
         p.destroyForcibly();
         m.destroyForcibly();

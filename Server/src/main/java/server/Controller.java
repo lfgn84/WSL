@@ -46,8 +46,8 @@ public class Controller {
         }
     }
     private void Postprocess() throws IOException{
-        counter++;
-        int place=0;
+      //  counter++;
+       // int place=0;
 
         if (request.fileRequested.contains("?")&& request.fileRequested.indexOf("?")<request.fileRequested.length()-1){
            String s=request.fileRequested.substring(request.fileRequested.indexOf("?")+1,request.fileRequested.length());
@@ -61,10 +61,6 @@ public class Controller {
         response.setContentType("application/json");
     }
     private void Getprocess() throws IOException {
-
-
-
-
 
         if(request.fileRequested.equals("/")){
             request.fileRequested="/"+DEFAULT_FILE;
@@ -106,8 +102,6 @@ public class Controller {
                     response.setContentType("image/svg+xml");
                     break;
                 case ".tif":
-                    response.setContentType("image/tiff");
-                    break;
                 case ".tiff":
                     response.setContentType("image/tiff");
                     break;
