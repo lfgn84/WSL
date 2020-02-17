@@ -1,34 +1,34 @@
-Line: 2020-02-17T17:39:27.581+0100 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
+Line: 2020-02-17T19:27:48.429+0100 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
 Line: 
-Line: 2020-02-17T17:39:27.588+0100 I  CONTROL  [initandlisten] MongoDB starting : pid=10336 port=27017 dbpath=C:\data\db\ 64-bit host=DESKTOP-Q3U52PL
+Line: 2020-02-17T19:27:48.438+0100 I  CONTROL  [initandlisten] MongoDB starting : pid=7876 port=27017 dbpath=C:\data\db\ 64-bit host=DESKTOP-Q3U52PL
 Line: 
-Line: 2020-02-17T17:39:27.588+0100 I  CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+Line: 2020-02-17T19:27:48.438+0100 I  CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
 Line: 
-Line: 2020-02-17T17:39:27.588+0100 I  CONTROL  [initandlisten] db version v4.2.2
+Line: 2020-02-17T19:27:48.438+0100 I  CONTROL  [initandlisten] db version v4.2.2
 Line: 
-Line: 2020-02-17T17:39:27.588+0100 I  CONTROL  [initandlisten] git version: a0bbbff6ada159e19298d37946ac8dc4b497eadf
+Line: 2020-02-17T19:27:48.438+0100 I  CONTROL  [initandlisten] git version: a0bbbff6ada159e19298d37946ac8dc4b497eadf
 Line: 
-Line: 2020-02-17T17:39:27.588+0100 I  CONTROL  [initandlisten] allocator: tcmalloc
+Line: 2020-02-17T19:27:48.438+0100 I  CONTROL  [initandlisten] allocator: tcmalloc
 Line: 
-Line: 2020-02-17T17:39:27.588+0100 I  CONTROL  [initandlisten] modules: none
+Line: 2020-02-17T19:27:48.438+0100 I  CONTROL  [initandlisten] modules: none
 Line: 
-Line: 2020-02-17T17:39:27.588+0100 I  CONTROL  [initandlisten] build environment:
+Line: 2020-02-17T19:27:48.438+0100 I  CONTROL  [initandlisten] build environment:
 Line: 
-Line: 2020-02-17T17:39:27.588+0100 I  CONTROL  [initandlisten]     distmod: 2012plus
+Line: 2020-02-17T19:27:48.439+0100 I  CONTROL  [initandlisten]     distmod: 2012plus
 Line: 
-Line: 2020-02-17T17:39:27.588+0100 I  CONTROL  [initandlisten]     distarch: x86_64
+Line: 2020-02-17T19:27:48.439+0100 I  CONTROL  [initandlisten]     distarch: x86_64
 Line: 
-Line: 2020-02-17T17:39:27.588+0100 I  CONTROL  [initandlisten]     target_arch: x86_64
+Line: 2020-02-17T19:27:48.439+0100 I  CONTROL  [initandlisten]     target_arch: x86_64
 Line: 
-Line: 2020-02-17T17:39:27.588+0100 I  CONTROL  [initandlisten] options: { net: { bindIp: "127.0.0.1" } }
+Line: 2020-02-17T19:27:48.439+0100 I  CONTROL  [initandlisten] options: { net: { bindIp: "127.0.0.1" } }
 Line: 
-Line: 2020-02-17T17:39:27.594+0100 I  STORAGE  [initandlisten] exception in initAndListen: DBPathInUse: Unable to create/open the lock file: C:\data\db\mongod.lock (Det går inte att komma åt filen eftersom den). Ensure the user executing mongod is the owner of the lock file and has the appropriate permissions. Also make sure that another mongod instance is not already running on the C:\data\db\ directory, terminating
+Line: 2020-02-17T19:27:48.443+0100 I  STORAGE  [initandlisten] exception in initAndListen: DBPathInUse: Unable to create/open the lock file: C:\data\db\mongod.lock (Det går inte att komma åt filen eftersom den). Ensure the user executing mongod is the owner of the lock file and has the appropriate permissions. Also make sure that another mongod instance is not already running on the C:\data\db\ directory, terminating
 Line: 
-Line: 2020-02-17T17:39:27.594+0100 I  NETWORK  [initandlisten] shutdown: going to close listening sockets...
+Line: 2020-02-17T19:27:48.443+0100 I  NETWORK  [initandlisten] shutdown: going to close listening sockets...
 Line: 
-Line: 2020-02-17T17:39:27.594+0100 I  -        [initandlisten] Stopping further Flow Control ticket acquisitions.
+Line: 2020-02-17T19:27:48.443+0100 I  -        [initandlisten] Stopping further Flow Control ticket acquisitions.
 Line: 
-Line: 2020-02-17T17:39:27.594+0100 I  CONTROL  [initandlisten] now exiting
+Line: 2020-02-17T19:27:48.444+0100 I  CONTROL  [initandlisten] now exiting
 Line: 
-Line: 2020-02-17T17:39:27.594+0100 I  CONTROL  [initandlisten] shutting down with code:100
+Line: 2020-02-17T19:27:48.444+0100 I  CONTROL  [initandlisten] shutting down with code:100
 Line: 
