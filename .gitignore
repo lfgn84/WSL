@@ -1,5 +1,5 @@
 # Project exclude paths
-/.idea
+.idea
 /out
 /Plugin/target
 /Client/target
@@ -10,3 +10,4 @@
 /Server/*.iml
 /SPI/*.iml
 *.properties
+*.iml
